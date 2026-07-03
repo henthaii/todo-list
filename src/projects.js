@@ -4,10 +4,17 @@
 
 // this should be a DOM because projects just contain the todos
 
+// file has to pull any new projects added to page
+
+// need to add initial project
+
 function projects() {
-    projectContainer = document.querySelector("container")
+    const projectContainer = document.querySelector(".container");
+    projectContainer.classList.add('project');
     projectContainer.innerHTML = `
-        <p>test</p>`;
+        <h2>Main To-Do Items</h2>
+    `;
+    return projectContainer;
 }
 
 export {projects};
