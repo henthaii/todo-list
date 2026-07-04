@@ -6,15 +6,16 @@
 
 // file has to pull any new projects added to page
 
-// need to add initial project
+// This is the first project that users see when they open page, DOM setup.
 
 function projects() {
     const projectContainer = document.querySelector(".container");
-    projectContainer.classList.add('project');
-    projectContainer.innerHTML = `
+    const project = document.createElement('div');
+    project.classList.add('project');
+    project.innerHTML = `
         <h2>Main To-Do Items</h2>
     `;
-    return projectContainer;
+    projectContainer.appendChild(project);
 }
 
 export {projects};

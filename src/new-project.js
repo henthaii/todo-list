@@ -1,12 +1,16 @@
-// creating addeventlistener for making a new project
+// This is specifically for new projects. 
+
+// Need to figure out how to dynamically take the input from new project putting
+// And add it as a heading context
 
 function newProject() {
     const projectContainer = document.querySelector(".container");
+    const project = document.createElement('div');
     projectContainer.classList.add('project');
-    projectContainer.innerHTML = `
-        <h2>new project</h2>
+    project.innerHTML = `
+        <h2>new project</h2> 
     `;
-    projectContainer.appendChild("project");
+    projectContainer.appendChild(project);
     return projectContainer;
 }
 
