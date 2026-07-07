@@ -8,7 +8,7 @@ function newProject() {
     const project = document.createElement('div');
     projectContainer.classList.add('project');
     project.innerHTML = `
-        <h2>new project</h2> 
+        <h2>New Project</h2> 
     `;
     projectContainer.appendChild(project);
     return projectContainer;

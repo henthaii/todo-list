@@ -8,6 +8,9 @@
 
 // This is the first project that users see when they open page, DOM setup.
 
+// I'm thinking this project isn't even needed since i have a new-project button and 
+// the default should be to have the "Main To-Do Items" already shown when user opens app
+
 function projects() {
     const projectContainer = document.querySelector(".container");
     const project = document.createElement('div');
