@@ -15,10 +15,10 @@ function newProject() {
                     <label for="project-name">Project Name:</label>
                     <input type="text" name="project-name" id="project-name">
                 </div>
+                <button id="cancel">Cancel</button>
             </form>
         </dialog>
-
-        // <h2>New Project</h2> this is filler for now, needs to take into account the dialog
+        <h2>New Project here (need to pull data from form)</h2>
     `;
     projectContainer.appendChild(project);
     return projectContainer;
