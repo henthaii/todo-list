@@ -6,7 +6,7 @@ function newTodo() {
     const toDo = document.createElement('div');
     todoContainer.classList.add('todo');
     toDo.innerHTML = `
-        <h2>New Project</h2> 
+        <h2>New tdo</h2> 
     `;
     todoContainer.appendChild(toDo);
     return todoContainer;
