@@ -5,9 +5,8 @@
 // 
 
 function newProject() {
-    const projectContainer = document.querySelector(".container");
     const project = document.createElement('div');
-    projectContainer.classList.add('project');
+    project.classList.add('project');
     project.innerHTML = `
         <dialog id="dialog">
             <form>
@@ -20,8 +19,7 @@ function newProject() {
         </dialog>
         <h2>New Project here (need to pull data from form)</h2>
     `;
-    projectContainer.appendChild(project);
-    return projectContainer;
+    return project;
 }
 
 export {newProject};

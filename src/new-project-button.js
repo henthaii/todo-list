@@ -1,5 +1,7 @@
 // This is the addEventListener logic for a new project
 
+// need to fix this file since i made rendernewproject
+
 import {newProject} from "./new-project.js"
 
 function addingProject() {
