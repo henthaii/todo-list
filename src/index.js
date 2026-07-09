@@ -1,4 +1,5 @@
-// import {projects} from "./projects.js" I don't think I need this one anymore
+// Index file that holds all the functions.
+
 import {clickingNewProject} from "./new-project-button.js";
 import {clickingNewTodo} from "./new-todo-button.js";
 
