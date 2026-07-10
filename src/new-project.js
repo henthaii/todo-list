@@ -9,19 +9,19 @@ function newProject() {
     const project = document.createElement('div');
     const form = document.querySelector("form");
     // const formData = new FormData(form);
-    project.classList.add('project');
+    project.classList.add('project-card');
     project.innerHTML = `
         <dialog id="dialog">
-            <form>
+            <form id="project-form">
                 <div class="label">
                     <label for="project-name">Project Name:</label>
                     <input type="text" name="project-name" id="project-name">
                 </div>
                 <button type="submit">Submit</button>
-                <button type="cancel">Cancel</button>
+                <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
-        <h2>formData.get('project-name')</h2>
+        <h2></h2>
     `;
     return project;
 }

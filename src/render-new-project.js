@@ -3,12 +3,13 @@
 // I believe this one is done
 
 import {newProject} from "./new-project.js"
+import {formSubmit} from "./form-submit.js"
 
 function renderNewProject() {
     const projectContainer = document.querySelector(".container");
     const appendNewProject = newProject();
     projectContainer.appendChild(appendNewProject);
-    console.log("Appended (insert project name somehow)")
+    formSubmit(appendNewProject);
 }
 
 export {renderNewProject};
