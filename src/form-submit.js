@@ -7,6 +7,7 @@ function formSubmit(projectElement) {
     const heading = projectElement.querySelector('h2');
     const dialog = projectElement.querySelector('#dialog');
     const cancelButton = projectElement.querySelector('.cancel');
+    const cancelXButton = projectElement.querySelector('.cancel-x');
 
     dialog.showModal();
 
@@ -17,6 +18,11 @@ function formSubmit(projectElement) {
     });
 
     cancelButton.addEventListener('click', () => {
+        dialog.close();
+        projectElement.remove();
+    });
+
+    cancelXButton.addEventListener('click', () => {
         dialog.close();
         projectElement.remove();
     });

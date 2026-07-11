@@ -1,10 +1,5 @@
 // This is the DOM for new projects. 
 
-// Need to figure out how to dynamically take the input from new project putting
-// And add it as a heading context
-// need to add submit button, soft cancel, and focused button to x out of box
-// need to create formdata (see library.js)
-
 function newProject() {
     const project = document.createElement('div');
     const form = document.querySelector("form");
@@ -13,6 +8,7 @@ function newProject() {
     project.innerHTML = `
         <dialog id="dialog">
             <form id="project-form">
+                <button type="button" class="cancel-x">x</button>
                 <div class="label">
                     <label for="project-name">Project Name:</label>
                     <input type="text" name="project-name" id="project-name">
