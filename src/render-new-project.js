@@ -1,7 +1,5 @@
 // This will take the DOM input and add it to HTML page.
 
-// I believe this one is done
-
 import {newProject} from "./new-project.js"
 import {formSubmit} from "./form-submit.js"
 

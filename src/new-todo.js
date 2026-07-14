@@ -3,14 +3,19 @@
 // to-do need to be a class?
 // how do i target specific div's to add the to-do's to
 // will model after the new project
+// Need to build the DOM, the dialog modal that will host form
+// Need to pull data from form to put as container elements
+// do i need to update the h2 as UL's as well
+// add addeventlistener button logic
+// appending logic to container will need to be a separate module
 
 function newTodo() {
     const todoContainer = document.querySelector(".container");
     const toDo = document.createElement('div');
     toDo.classList.add('todo-card');
     toDo.innerHTML = `
-        <dialog id="dialog">
-            <form id="project-form">
+        <dialog id="todo-dialog">
+            <form id="todo-form">
                 <button type="button" class="cancel-x">x</button>
                 <div class="label">
                     <label for="title">Title:</label>
@@ -28,9 +33,8 @@ function newTodo() {
                     <label for="priority">Priority:</label>
                     <input type="text" name="priority" id="priority">
                 </div>
-                <div class="label">
-                    <input type="checkbox" name="checklist" id="checklist">
-                </div>
+                // need to add drop down option of where to add the todo
+                // drop down needs to read ".project-card"
                 <button type="submit">Submit</button>
                 <button type="button" class="cancel">Cancel</button>
             </form>
@@ -41,4 +45,38 @@ function newTodo() {
     return toDo;
 }
 
-export {newTodo}
+function clickingToDo() {
+    const button = document.querySelector(".todo");
+    if (button) {
+        button.addEventListener("click",newTodo)
+    }
+}
+
+// need to update this later to target the selected project
+
+function todoSubmit(todo) {
+    const form = todo.querySelector("#todo-form");
+    const container = todo.querySelector('h2');
+    const dialog = todo.querySelector('todo-dialog');
+    const cancelButton = todo.querySelector('.cancel');
+    const cancelXButton = todo.querySelector('.cancel-x');
+    dialog.showModal();
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        container.textContent = getProjectName(form);
+        dialog.close();
+    });
+
+    cancelButton.addEventListener('click', () => {
+        dialog.close();
+        todo.remove();
+    });
+
+    cancelXButton.addEventListener('click', () => {
+        dialog.close();
+        todo.remove();
+    }); 
+}
+
+// export {newTodo}

@@ -25,7 +25,7 @@ function formSubmit(projectElement) {
     cancelXButton.addEventListener('click', () => {
         dialog.close();
         projectElement.remove();
-    });
+    }); 
 }
 
 export {formSubmit}

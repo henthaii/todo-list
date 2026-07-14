@@ -14,7 +14,7 @@
 
 class Todo {
     constructor(title,description,dueDate,priority) {
-        this.id = this.id;
+        this.id = this.id; // how do i fix this to where the id starts 
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
