@@ -13,8 +13,23 @@ function newTodo() {
             <form id="project-form">
                 <button type="button" class="cancel-x">x</button>
                 <div class="label">
-                    <label for="project-name">Project Name:</label>
-                    <input type="text" name="project-name" id="project-name">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" id="title">
+                </div>
+                <div class="label">
+                    <label for="description">Description:</label>
+                    <input type="text" name="description" id="description">
+                </div>
+                <div class="label">
+                    <label for="due-date">Due Date:</label>
+                    <input type="text" name="due-date" id="due-date">
+                </div>
+                <div class="label">
+                    <label for="priority">Priority:</label>
+                    <input type="text" name="priority" id="priority">
+                </div>
+                <div class="label">
+                    <input type="checkbox" name="checklist" id="checklist">
                 </div>
                 <button type="submit">Submit</button>
                 <button type="button" class="cancel">Cancel</button>

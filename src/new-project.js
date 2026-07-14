@@ -3,7 +3,6 @@
 function newProject() {
     const project = document.createElement('div');
     const form = document.querySelector("form");
-    // const formData = new FormData(form);
     project.classList.add('project-card');
     project.innerHTML = `
         <dialog id="dialog">
