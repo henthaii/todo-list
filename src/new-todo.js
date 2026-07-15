@@ -32,9 +32,11 @@ function newTodo() {
                 <div class="label">
                     <label for="priority">Priority:</label>
                     <input type="text" name="priority" id="priority">
+                    <select name="Priority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
                 </div>
-                // need to add drop down option of where to add the todo
-                // drop down needs to read ".project-card"
                 <button type="submit">Submit</button>
                 <button type="button" class="cancel">Cancel</button>
             </form>
@@ -51,8 +53,6 @@ function clickingToDo() {
         button.addEventListener("click",newTodo)
     }
 }
-
-// need to update this later to target the selected project
 
 function todoSubmit(todo) {
     const form = todo.querySelector("#todo-form");
