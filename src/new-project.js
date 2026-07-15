@@ -1,8 +1,8 @@
-// This is the DOM for new projects. 
+// This is the DOM for new projects.
+// Do I need to add an array per "project-form"?
 
 function newProject() {
     const project = document.createElement('div');
-    const form = document.querySelector("form");
     project.classList.add('project-card');
     project.innerHTML = `
         <dialog id="dialog">

@@ -56,7 +56,7 @@ function clickingToDo() {
 
 function todoSubmit(todo) {
     const form = todo.querySelector("#todo-form");
-    const container = todo.querySelector('h2');
+    const container = todo.querySelector('.todo-container');
     const dialog = todo.querySelector('todo-dialog');
     const cancelButton = todo.querySelector('.cancel');
     const cancelXButton = todo.querySelector('.cancel-x');
