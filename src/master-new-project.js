@@ -1,8 +1,10 @@
+// file is used for visual assistance, will not be used for index
+
 function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');
     project.innerHTML = `
-        <dialog id="dialog">
+        <dialog class="dialog">
             <form id="project-form">
                 <button type="button" class="cancel-x">x</button>
                 <div class="label">

@@ -1,6 +1,7 @@
 // Temporarily will host entire to-do logic. Will need to break down after
 
 // to-do need to be a class?
+// how do i fit in a class section
 // how do i target specific div's to add the to-do's to
 // will model after the new project
 // Need to build the DOM, the dialog modal that will host form
@@ -31,7 +32,6 @@ function newTodo() {
                 </div>
                 <div class="label">
                     <label for="priority">Priority:</label>
-                    <input type="text" name="priority" id="priority">
                     <select name="Priority">
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
@@ -41,30 +41,40 @@ function newTodo() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
-        <h2></h2>
+        <h3></h3>
     `;
     todoContainer.appendChild(toDo);
+
+    // Need to remove this once I separate everything into separate modules
+    toDoSubmit(toDo);
+
     return toDo;
+}
+
+function getTodoName(formElement) {
+    const formData = new FormData(formElement);
+    return formData.get("title");
 }
 
 function clickingToDo() {
     const button = document.querySelector(".todo");
     if (button) {
-        button.addEventListener("click",newTodo)
+        button.addEventListener("click",newTodo);
     }
 }
 
-function todoSubmit(todo) {
+function toDoSubmit(todo) {
     const form = todo.querySelector("#todo-form");
-    const container = todo.querySelector('.todo-container');
-    const dialog = todo.querySelector('todo-dialog');
+    const container = todo.querySelector('h3');
+    const dialog = todo.querySelector('#todo-dialog');
     const cancelButton = todo.querySelector('.cancel');
     const cancelXButton = todo.querySelector('.cancel-x');
+
     dialog.showModal();
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        container.textContent = getProjectName(form);
+        container.textContent = getTodoName(form);
         dialog.close();
     });
 
@@ -78,5 +88,10 @@ function todoSubmit(todo) {
         todo.remove();
     }); 
 }
+
+// function renderNewToDo() {
+//     const todoContainer = document.querySelector(".container");
+//     const appendNewToDo = newTodo();
+// }
 
 // export {newTodo}
