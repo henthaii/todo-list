@@ -15,8 +15,8 @@ function newTodo() {
     const toDo = document.createElement('div');
     toDo.classList.add('todo-card');
     toDo.innerHTML = `
-        <dialog id="todo-dialog">
-            <form id="todo-form">
+        <dialog class="todo-dialog">
+            <form class="todo-form">
                 <button type="button" class="cancel-x">x</button>
                 <div class="label">
                     <label for="title">Title:</label>
@@ -36,6 +36,7 @@ function newTodo() {
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
+                    </select>
                 </div>
                 <button type="submit">Submit</button>
                 <button type="button" class="cancel">Cancel</button>
@@ -64,18 +65,17 @@ function clickingToDo() {
 }
 
 function toDoSubmit(todo) {
-    const form = todo.querySelector("#todo-form");
+    const form = todo.querySelector(".todo-form");
     const container = todo.querySelector('h3');
-    const dialog = todo.querySelector('#todo-dialog');
+    const dialog = todo.querySelector('.todo-dialog');
     const cancelButton = todo.querySelector('.cancel');
     const cancelXButton = todo.querySelector('.cancel-x');
-
-    dialog.showModal();
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         container.textContent = getTodoName(form);
         dialog.close();
+        dialog.remove();
     });
 
     cancelButton.addEventListener('click', () => {
@@ -87,6 +87,9 @@ function toDoSubmit(todo) {
         dialog.close();
         todo.remove();
     }); 
+
+    dialog.showModal();
+
 }
 
 // function renderNewToDo() {

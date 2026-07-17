@@ -4,7 +4,7 @@ function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');
     project.innerHTML = `
-        <dialog class="dialog">
+        <dialog id="dialog">
             <form id="project-form">
                 <button type="button" class="cancel-x">x</button>
                 <div class="label">
@@ -38,8 +38,6 @@ function formSubmit(projectElement) {
     const cancelButton = projectElement.querySelector('.cancel');
     const cancelXButton = projectElement.querySelector('.cancel-x');
 
-    dialog.showModal();
-
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         heading.textContent = getProjectName(form);
@@ -55,6 +53,8 @@ function formSubmit(projectElement) {
         dialog.close();
         projectElement.remove();
     }); 
+
+    dialog.showModal();
 }
 
 export {formSubmit}
