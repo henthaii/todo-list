@@ -43,13 +43,10 @@ function newTodo() {
         </dialog>
         <h3></h3>
     `;
-
-    // Need to remove this once I separate everything into separate modules
-    // toDoSubmit(toDo);
     return toDo;
 }
 
-export {newTodo}
+export {newTodo};
 
 function getTodoName(formElement) {
     const formData = new FormData(formElement);
@@ -58,28 +55,14 @@ function getTodoName(formElement) {
 
 export {getTodoName}
 
-import {renderNewTodo} from //insert file name here
+import {getTodoName} from //insert file name here
 
-function addingTodo() {
-    renderNewTodo();
-    console.log("Adding new todo.");
-}
-
-function clickingNewTodo() {
-    const button = document.querySelector(".todo");
-    if (button) {
-        button.addEventListener("click",newTodo);
-    }
-}
-
-export {clickingNewTodo}
-
-function toDoSubmit(todo) {
-    const form = todo.querySelector(".todo-form");
-    const container = todo.querySelector('h3');
-    const dialog = todo.querySelector('.todo-dialog');
-    const cancelButton = todo.querySelector('.cancel');
-    const cancelXButton = todo.querySelector('.cancel-x');
+function toDoSubmit(todoElement) {
+    const form = todoElement.querySelector(".todo-form");
+    const container = todoElement.querySelector('h3');
+    const dialog = todoElement.querySelector('.todo-dialog');
+    const cancelButton = todoElement.querySelector('.cancel');
+    const cancelXButton = todoElement.querySelector('.cancel-x');
 
     dialog.showModal();
 
@@ -102,9 +85,32 @@ function toDoSubmit(todo) {
 
 }
 
+export {toDoSubmit};
+
+import {newTodo} from //insert file name here
+import {toDoSubmit} from //insert file name here
+
 function renderNewTodo() {
     const todoContainer = document.querySelector(".container");
-    const appendNewToDo = newTodo();
-    todoContainer.appendChild(appendNewToDo);
-    toDoSubmit(appendNewToDo);
+    const appendNewTodo = newTodo();
+    todoContainer.appendChild(appendNewTodo);
+    toDoSubmit(appendNewTodo);
 }
+
+export {renderNewTodo};
+
+import {renderNewTodo} from //insert file name here
+
+function addingTodo() {
+    renderNewTodo();
+    console.log("Adding new todo.");
+}
+
+function clickingNewTodo() {
+    const button = document.querySelector(".todo");
+    if (button) {
+        button.addEventListener("click",newTodo);
+    }
+}
+
+export {clickingNewTodo};

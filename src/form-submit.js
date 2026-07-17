@@ -9,6 +9,8 @@ function formSubmit(projectElement) {
     const cancelButton = projectElement.querySelector('.cancel');
     const cancelXButton = projectElement.querySelector('.cancel-x');
 
+    dialog.showModal();
+
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         heading.textContent = getProjectName(form);
@@ -26,8 +28,8 @@ function formSubmit(projectElement) {
         projectElement.remove();
     }); 
 
-    dialog.showModal();
     
+
 }
 
 export {formSubmit}
