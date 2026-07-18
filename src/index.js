@@ -1,7 +1,7 @@
 // Index file that will form the page.
 
-import {clickingNewProject} from "./new-project-button.js";
-// import {clickingNewTodo} from "./new-todo-button.js";
+import {clickingNewProject} from "./clicking-new-project.js";
+import {clickingNewTodo} from "./clicking-new-todo.js";
 
 
 
@@ -9,4 +9,4 @@ import {clickingNewProject} from "./new-project-button.js";
 // const addProject = document.querySelector(".projects").addEventListener("click",newProject);
 
 clickingNewProject();
-// clickingNewTodo();
+clickingNewTodo();

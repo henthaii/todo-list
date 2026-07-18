@@ -87,8 +87,8 @@ function todoSubmit(todoElement) {
 
 export {todoSubmit};
 
-import {newTodo} from //insert file name here
-import {todoSubmit} from //insert file name here
+import {newTodo} from "./new-todo.js"
+import {todoSubmit} from "./todoSubmit.js"
 
 function renderNewTodo() {
     const todoContainer = document.querySelector(".container");
@@ -99,7 +99,7 @@ function renderNewTodo() {
 
 export {renderNewTodo};
 
-import {renderNewTodo} from //insert file name here
+import {renderNewTodo} from "./render-new-todo.js"
 
 function clickingNewTodo() {
     const button = document.querySelector(".todo");
