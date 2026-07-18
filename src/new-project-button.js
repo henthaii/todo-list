@@ -2,15 +2,15 @@
 
 import {renderNewProject} from "./render-new-project.js"
 
-function addingProject() {
-    renderNewProject();
-    console.log("Adding new project.");
-}
+// function addingProject() {
+//     renderNewProject();
+//     console.log("Adding new project.");
+// }
 
 function clickingNewProject() {
     const button = document.querySelector(".project");
     if (button) {
-        button.addEventListener("click",addingProject);
+        button.addEventListener("click",renderNewProject);
     }
 }
 

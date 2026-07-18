@@ -1,14 +1,4 @@
-// Temporarily will host entire to-do logic. Will need to break down after
-
-// to-do need to be a class?
-// how do i fit in a class section
-// how do i target specific div's to add the to-do's to
-// will model after the new project
-// Need to build the DOM, the dialog modal that will host form
-// Need to pull data from form to put as container elements
-// do i need to update the h2 as UL's as well
-// add addeventlistener button logic
-// appending logic to container will need to be a separate module
+// This is the DOM for new todo's.
 
 function newTodo() {
     const toDo = document.createElement('div');
@@ -43,68 +33,7 @@ function newTodo() {
         </dialog>
         <h3></h3>
     `;
-
-    // Need to remove this once I separate everything into separate modules
-    // toDoSubmit(toDo);
     return toDo;
 }
 
 export {newTodo}
-
-function getTodoName(formElement) {
-    const formData = new FormData(formElement);
-    return formData.get("title");
-}
-
-export {getTodoName}
-
-import {renderNewTodo} from //insert file name here
-
-function addingTodo() {
-    renderNewTodo();
-    console.log("Adding new todo.");
-}
-
-function clickingNewTodo() {
-    const button = document.querySelector(".todo");
-    if (button) {
-        button.addEventListener("click",newTodo);
-    }
-}
-
-export {clickingNewTodo}
-
-function toDoSubmit(todo) {
-    const form = todo.querySelector(".todo-form");
-    const container = todo.querySelector('h3');
-    const dialog = todo.querySelector('.todo-dialog');
-    const cancelButton = todo.querySelector('.cancel');
-    const cancelXButton = todo.querySelector('.cancel-x');
-
-    dialog.showModal();
-
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        container.textContent = getTodoName(form);
-        dialog.close();
-        dialog.remove();
-    });
-
-    cancelButton.addEventListener('click', () => {
-        dialog.close();
-        todo.remove();
-    });
-
-    cancelXButton.addEventListener('click', () => {
-        dialog.close();
-        todo.remove();
-    }); 
-
-}
-
-function renderNewTodo() {
-    const todoContainer = document.querySelector(".container");
-    const appendNewToDo = newTodo();
-    todoContainer.appendChild(appendNewToDo);
-    toDoSubmit(appendNewToDo);
-}

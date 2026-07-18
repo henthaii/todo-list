@@ -57,7 +57,7 @@ export {getTodoName}
 
 import {getTodoName} from //insert file name here
 
-function toDoSubmit(todoElement) {
+function todoSubmit(todoElement) {
     const form = todoElement.querySelector(".todo-form");
     const container = todoElement.querySelector('h3');
     const dialog = todoElement.querySelector('.todo-dialog');
@@ -75,41 +75,37 @@ function toDoSubmit(todoElement) {
 
     cancelButton.addEventListener('click', () => {
         dialog.close();
-        todo.remove();
+        todoElement.remove();
     });
 
     cancelXButton.addEventListener('click', () => {
         dialog.close();
-        todo.remove();
+        todoElement.remove();
     }); 
 
 }
 
-export {toDoSubmit};
+export {todoSubmit};
 
 import {newTodo} from //insert file name here
-import {toDoSubmit} from //insert file name here
+import {todoSubmit} from //insert file name here
 
 function renderNewTodo() {
     const todoContainer = document.querySelector(".container");
     const appendNewTodo = newTodo();
     todoContainer.appendChild(appendNewTodo);
-    toDoSubmit(appendNewTodo);
+    todoSubmit(appendNewTodo);
 }
 
 export {renderNewTodo};
 
 import {renderNewTodo} from //insert file name here
 
-function addingTodo() {
-    renderNewTodo();
-    console.log("Adding new todo.");
-}
-
 function clickingNewTodo() {
     const button = document.querySelector(".todo");
     if (button) {
-        button.addEventListener("click",newTodo);
+        button.addEventListener("click",renderNewTodo);
+        console.log("Adding new todo.");
     }
 }
 
