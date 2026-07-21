@@ -1,5 +1,7 @@
 // file is used for visual assistance, will not be used for index
 
+// how tf do i add a new array based on newproject being created
+
 function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');

@@ -31,7 +31,7 @@ function newTodo() {
                 </div>
                 <div class="label">
                     <label for="priority">Priority:</label>
-                    <select name="Priority">
+                    <select name="priority-level">
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>

@@ -2,15 +2,16 @@
 
 // need to get the return function to return an array due to adding in more values
 // return can only return one value but can do arrays
-// dropdown is going to use dropdown.value i believe to pull info
+// need to figure out how to add to an array
+// do i need to make a new function to create array holders
 
 
 function getTodoName(formElement) {
     const formData = new FormData(formElement);
-    return formData.get("title");
-    formData.get("description");
-    formData.get("due-date");
-    //dropdown value goes here
+    return formData.get("title"),
+    formData.get("description"),
+    formData.get("due-date"),
+    formData.get("priority-level"),
 }
 
 export {getTodoName}
