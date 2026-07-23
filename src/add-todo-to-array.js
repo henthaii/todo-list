@@ -9,6 +9,7 @@ import { mainTodo } from "./main-todo-array.js";
 function addTodoToArray(title,description,dueDate,priority) {
     const newTodo = new Todo(title,description,dueDate,priority);
     mainTodo.push(newTodo);
+    return newTodo;
 }
 
 export {addTodoToArray}

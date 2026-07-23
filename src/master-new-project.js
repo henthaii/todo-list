@@ -70,8 +70,8 @@ import {formSubmit} from "./form-submit.js"
 function renderNewProject() {
     const projectContainer = document.querySelector(".container");
     const appendNewProject = newProject();
-    projectContainer.appendChild(appendNewProject);
-    formSubmit(appendNewProject);
+    projectContainer.appendChild(appendNewProject); // adds the newProject logic (adding DOM elements) to the container
+    formSubmit(appendNewProject); // adds DOM to the formSubmit function and fills in the "projectElement", also adds the form data
 }
 
 export {renderNewProject};

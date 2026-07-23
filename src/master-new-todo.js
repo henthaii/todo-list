@@ -48,14 +48,49 @@ function newTodo() {
 
 export {newTodo};
 
+const mainTodo = [];
+
+export {mainTodo}
+
+class Todo {
+    constructor(title,description,dueDate,priority) {
+        this.id = crypto.randomUUID(); 
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
+    };
+};
+
+export {Todo};
+
+import { Todo } from "./class-todos.js"
+import { mainTodo } from "./main-todo-array.js";
+
+
+function addTodoToArray(title,description,dueDate,priority) {
+    const newTodo = new Todo(title,description,dueDate,priority);
+    mainTodo.push(newTodo);
+    return newTodo;
+}
+
+export {addTodoToArray}
+
+import {addTodoToArray} from "./add-todo-to-array.js"
+
 function getTodoName(formElement) {
     const formData = new FormData(formElement);
-    return formData.get("title");
-}
+    return addTodoToArray(
+        formData.get("title"),
+        formData.get("description"),
+        formData.get("due-date"),
+        formData.get("priority")
+    );
+};
 
 export {getTodoName}
 
-import {getTodoName} from //insert file name here
+import {getTodoName} from "./get-todo-name.js"
 
 function todoSubmit(todoElement) {
     const form = todoElement.querySelector(".todo-form");

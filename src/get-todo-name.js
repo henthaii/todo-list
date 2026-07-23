@@ -7,11 +7,11 @@
 // for now, get class to work with this and append to end of whatever element is left
 // priority works
 
-import {addTodoToArray} from "./addTodoToArray.js"
+import {addTodoToArray} from "./add-todo-to-array.js"
 
 function getTodoName(formElement) {
     const formData = new FormData(formElement);
-    addTodoToArray(
+    return addTodoToArray(
         formData.get("title"),
         formData.get("description"),
         formData.get("due-date"),
