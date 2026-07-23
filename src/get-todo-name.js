@@ -5,17 +5,18 @@
 // need to figure out how to add to an array
 // do i need to make a new function to create array holders
 // for now, get class to work with this and append to end of whatever element is left
+// priority works
 
-import {addTodoToProject} from "./addTodoToProject.js"
+import {addTodoToArray} from "./addTodoToArray.js"
 
 function getTodoName(formElement) {
     const formData = new FormData(formElement);
-    // addTodoToProject(
-        // return formData.get("title")
-        // formData.get("description"),
-        // formData.get("due-date"),
-        return formData.get("priority")
-    // );
+    addTodoToArray(
+        formData.get("title"),
+        formData.get("description"),
+        formData.get("due-date"),
+        formData.get("priority")
+    );
 };
 
 export {getTodoName}
