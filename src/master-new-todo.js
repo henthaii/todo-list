@@ -12,7 +12,7 @@
 
 function newTodo() {
     const toDo = document.createElement('div');
-    toDo.classList.add('todo-card');
+    toDo.classList.add('todo-container'); // this needs to be moved to project because todo gets looped through
     toDo.innerHTML = `
         <dialog class="todo-dialog">
             <form class="todo-form">
@@ -90,7 +90,29 @@ function getTodoName(formElement) {
 
 export {getTodoName}
 
+import {mainTodo} from "./main-todo-array.js"
+
+function renderAllTodos(){
+    const todoContainer = document.querySelector("h3");
+    todoContainer.innerHTML = "";
+    mainTodo.forEach((todo) => {
+        const todoCard = document.createElement("div");
+        todoCard.classList.add("todo-card");
+        todoCard.dataset.id = todo.id;
+        todoCard.innerHTML = `
+            <h3>To-do: ${todo.title}</h3>
+            <p>Description: ${todo.description}</p>
+            <small>Due: ${todo.dueDate}</small>
+            <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
+        `;
+        todoContainer.appendChild(todoCard);
+    });
+}
+
+export {renderAllTodos}
+
 import {getTodoName} from "./get-todo-name.js"
+import {renderAllTodos} from "./render-all-todos.js"
 
 function todoSubmit(todoElement) {
     const form = todoElement.querySelector(".todo-form");
@@ -103,7 +125,8 @@ function todoSubmit(todoElement) {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        container.textContent = getTodoName(form);
+        getTodoName(form);
+        renderAllTodos();
         dialog.close();
         dialog.remove();
     });

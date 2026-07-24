@@ -1,6 +1,7 @@
 // This will be the eventlistener for the submit button in the New Todo form.
 
 import {getTodoName} from "./get-todo-name.js"
+import { renderAllTodos } from "./render-all-todos.js";
 
 function todoSubmit(todoElement) {
     const form = todoElement.querySelector(".todo-form");
@@ -13,7 +14,8 @@ function todoSubmit(todoElement) {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        container.textContent = getTodoName(form);
+        getTodoName(form);
+        renderAllTodos();
         dialog.close();
         dialog.remove();
     });

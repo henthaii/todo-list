@@ -2,7 +2,7 @@
 
 function newTodo() {
     const toDo = document.createElement('div');
-    toDo.classList.add('todo-card');
+    toDo.classList.add('todo-container');
     toDo.innerHTML = `
         <dialog class="todo-dialog">
             <form class="todo-form">
@@ -31,7 +31,6 @@ function newTodo() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
-        <h3></h3>
     `;
     return toDo;
 }
