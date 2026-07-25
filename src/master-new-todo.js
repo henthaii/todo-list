@@ -1,11 +1,7 @@
 // Temporarily will host entire to-do logic. Will need to break down after
 
-// to-do need to be a class?
-// how do i fit in a class section
 // how do i target specific div's to add the to-do's to
 // will model after the new project
-// Need to build the DOM, the dialog modal that will host form
-// Need to pull data from form to put as container elements
 // do i need to update the h2 as UL's as well
 // add addeventlistener button logic
 // appending logic to container will need to be a separate module
