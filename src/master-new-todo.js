@@ -5,6 +5,7 @@
 // do i need to update the h2 as UL's as well
 // add addeventlistener button logic
 // appending logic to container will need to be a separate module
+// need to update todos to use less files
 
 function newTodo() {
     const toDo = document.createElement('div');

@@ -1,6 +1,8 @@
-// This is the DOM for new projects.
-// Do I need to add an array per "project-form"?
+// This will manage the visual structure (DOM)
+// And data extraction
 
+
+// DOM handler
 function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');
@@ -21,4 +23,11 @@ function newProject() {
     return project;
 }
 
-export {newProject};
+
+// Form information handler/data extraction
+function getProjectName(formElement) {
+    const formData = new FormData(formElement);
+    return formData.get("project-name");
+}
+
+export {newProject,getProjectName}
