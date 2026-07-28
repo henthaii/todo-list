@@ -7,9 +7,41 @@
 // appending logic to container will need to be a separate module
 // need to update todos to use less files
 
+const mainTodo = [];
+
+class Todo {
+    constructor(title,description,dueDate,priority) {
+        this.id = crypto.randomUUID(); 
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority;
+    };
+};
+
+function addTodoToArray(title,description,dueDate,priority) {
+    const newTodo = new Todo(title,description,dueDate,priority);
+    mainTodo.push(newTodo);
+    return newTodo;
+}
+
+function getTodoName(formElement) {
+    const formData = new FormData(formElement);
+    return addTodoToArray(
+        formData.get("title"),
+        formData.get("description"),
+        formData.get("due-date"),
+        formData.get("priority")
+    );
+};
+
+export {mainTodo,Todo,addTodoToArray,getTodoName}
+
+import {mainTodo} from "./todo-component.js"
+
 function newTodo() {
     const toDo = document.createElement('div');
-    toDo.classList.add('todo-container'); // this needs to be moved to project because todo gets looped through
+    toDo.classList.add('todo-container');
     toDo.innerHTML = `
         <dialog class="todo-dialog">
             <form class="todo-form">
@@ -28,7 +60,7 @@ function newTodo() {
                 </div>
                 <div class="label">
                     <label for="priority">Priority:</label>
-                    <select name="priority-level">
+                    <select name="priority">
                         <option value="low">Low</option>
                         <option value="medium">Medium</option>
                         <option value="high">High</option>
@@ -38,56 +70,9 @@ function newTodo() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
-        <h3></h3>
     `;
     return toDo;
 }
-
-export {newTodo};
-
-const mainTodo = [];
-
-export {mainTodo}
-
-class Todo {
-    constructor(title,description,dueDate,priority) {
-        this.id = crypto.randomUUID(); 
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-    };
-};
-
-export {Todo};
-
-import { Todo } from "./class-todos.js"
-import { mainTodo } from "./main-todo-array.js";
-
-
-function addTodoToArray(title,description,dueDate,priority) {
-    const newTodo = new Todo(title,description,dueDate,priority);
-    mainTodo.push(newTodo);
-    return newTodo;
-}
-
-export {addTodoToArray}
-
-import {addTodoToArray} from "./add-todo-to-array.js"
-
-function getTodoName(formElement) {
-    const formData = new FormData(formElement);
-    return addTodoToArray(
-        formData.get("title"),
-        formData.get("description"),
-        formData.get("due-date"),
-        formData.get("priority")
-    );
-};
-
-export {getTodoName}
-
-import {mainTodo} from "./main-todo-array.js"
 
 function renderAllTodos(){
     const todoContainer = document.querySelector("h3");
@@ -106,10 +91,10 @@ function renderAllTodos(){
     });
 }
 
-export {renderAllTodos}
+export {newTodo,renderAllTodos}
 
-import {getTodoName} from "./get-todo-name.js"
-import {renderAllTodos} from "./render-all-todos.js"
+import {getTodoName} from "./todo-component.js"
+import {newTodo,renderAllTodos} from "./todo-DOM.js"
 
 function todoSubmit(todoElement) {
     const form = todoElement.querySelector(".todo-form");
@@ -140,21 +125,12 @@ function todoSubmit(todoElement) {
 
 }
 
-export {todoSubmit};
-
-import {newTodo} from "./new-todo.js"
-import {todoSubmit} from "./todoSubmit.js"
-
 function renderNewTodo() {
-    const todoContainer = document.querySelector(".container");
+    const todoContainer = document.querySelector(".project-main");
     const appendNewTodo = newTodo();
     todoContainer.appendChild(appendNewTodo);
     todoSubmit(appendNewTodo);
 }
-
-export {renderNewTodo};
-
-import {renderNewTodo} from "./render-new-todo.js"
 
 function clickingNewTodo() {
     const button = document.querySelector(".todo");
@@ -164,4 +140,4 @@ function clickingNewTodo() {
     }
 }
 
-export {clickingNewTodo};
+export {todoSubmit,renderNewTodo,clickingNewTodo};

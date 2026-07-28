@@ -1,4 +1,6 @@
-// This is the DOM for new todo's.
+// This will manage the visual structure and rendering
+
+import {mainTodo} from "./todo-component.js"
 
 function newTodo() {
     const toDo = document.createElement('div');
@@ -31,8 +33,26 @@ function newTodo() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
+        <h3></h3>
     `;
     return toDo;
 }
 
-export {newTodo}
+function renderAllTodos(){
+    const todoContainer = document.querySelector("h3");
+    todoContainer.innerHTML = "";
+    mainTodo.forEach((todo) => {
+        const todoCard = document.createElement("div");
+        todoCard.classList.add("todo-card");
+        todoCard.dataset.id = todo.id;
+        todoCard.innerHTML = `
+            <h3>To-do: ${todo.title}</h3>
+            <p>Description: ${todo.description}</p>
+            <small>Due: ${todo.dueDate}</small>
+            <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
+        `;
+        todoContainer.appendChild(todoCard);
+    });
+}
+
+export {newTodo,renderAllTodos}

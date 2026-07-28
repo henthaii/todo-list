@@ -1,7 +1,8 @@
-// This will be the eventlistener for the submit button in the New Todo form.
+// This will handle coordinating and modal event
+// interactions
 
-import {getTodoName} from "./get-todo-name.js"
-import { renderAllTodos } from "./render-all-todos.js";
+import {getTodoName} from "./todo-component.js"
+import {newTodo,renderAllTodos} from "./todo-DOM.js"
 
 function todoSubmit(todoElement) {
     const form = todoElement.querySelector(".todo-form");
@@ -32,4 +33,19 @@ function todoSubmit(todoElement) {
 
 }
 
-export {todoSubmit};
+function renderNewTodo() {
+    const todoContainer = document.querySelector(".project-main");
+    const appendNewTodo = newTodo();
+    todoContainer.appendChild(appendNewTodo);
+    todoSubmit(appendNewTodo);
+}
+
+function clickingNewTodo() {
+    const button = document.querySelector(".todo");
+    if (button) {
+        button.addEventListener("click",renderNewTodo);
+        console.log("Adding new todo.");
+    }
+}
+
+export {todoSubmit,renderNewTodo,clickingNewTodo};
