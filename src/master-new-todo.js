@@ -70,6 +70,7 @@ function newTodo() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
+        <h3></h3>
     `;
     return toDo;
 }
@@ -86,6 +87,7 @@ function renderAllTodos(){
             <p>Description: ${todo.description}</p>
             <small>Due: ${todo.dueDate}</small>
             <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
+            <button class="delete">Delete</button>
         `;
         todoContainer.appendChild(todoCard);
     });
