@@ -48,4 +48,4 @@ function clickingNewTodo() {
     }
 }
 
-export {todoSubmit,renderNewTodo,clickingNewTodo};
+export {todoSubmit, renderNewTodo, clickingNewTodo};

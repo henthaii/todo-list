@@ -29,4 +29,11 @@ function getTodoName(formElement) {
     );
 };
 
-export {mainTodo,Todo,addTodoToArray,getTodoName}
+function deleteTodoFromArray(id) {
+    const index = mainTodo.findIndex(todo => todo.id === id);
+    if (index !== -1) {
+        mainTodo.splice(index,1);
+    }
+}
+
+export {mainTodo, Todo, addTodoToArray, getTodoName, deleteTodoFromArray}

@@ -1,6 +1,6 @@
 // This will manage the visual structure and rendering
 
-import {mainTodo} from "./todo-component.js"
+import {mainTodo, deleteTodoFromArray} from "./todo-component.js"
 
 function newTodo() {
     const toDo = document.createElement('div');
@@ -52,8 +52,14 @@ function renderAllTodos(){
             <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
             <button class="delete">Delete</button>
         `;
-        todoContainer.appendChild(todoCard);
-    });
-}
+    
 
-export {newTodo,renderAllTodos}
+    const deleteButton = todoCard.querySelector(".delete");
+    deleteButton.addEventListener("click", () => {
+      deleteTodoFromArray(todo.id);
+      renderAllTodos();
+    });
+    todoContainer.appendChild(todoCard);
+  });
+};
+export {newTodo, renderAllTodos}
