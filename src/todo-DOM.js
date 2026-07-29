@@ -52,14 +52,15 @@ function renderAllTodos(){
             <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
             <button class="delete">Delete</button>
         `;
-    
-
+      
     const deleteButton = todoCard.querySelector(".delete");
-    deleteButton.addEventListener("click", () => {
-      deleteTodoFromArray(todo.id);
-      renderAllTodos();
+    deleteButton.addEventListener("click", (e) => {
+        deleteTodoFromArray(todo.id);
+        const deleteTodoContainer = e.target.closest(".todo-container")
+        deleteTodoContainer.remove();
     });
     todoContainer.appendChild(todoCard);
   });
 };
+
 export {newTodo, renderAllTodos}

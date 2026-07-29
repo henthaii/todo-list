@@ -35,7 +35,14 @@ function getTodoName(formElement) {
     );
 };
 
-export {mainTodo,Todo,addTodoToArray,getTodoName}
+function deleteTodoFromArray(id) {
+    const index = mainTodo.findIndex(todo => todo.id === id);
+    if (index !== -1) {
+        mainTodo.splice(index,1);
+    }
+}
+
+export {mainTodo, Todo, addTodoToArray, getTodoName, deleteTodoFromArray}
 
 import {mainTodo} from "./todo-component.js"
 
@@ -89,9 +96,16 @@ function renderAllTodos(){
             <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
             <button class="delete">Delete</button>
         `;
-        todoContainer.appendChild(todoCard);
+          
+    const deleteButton = todoCard.querySelector(".delete");
+    deleteButton.addEventListener("click", (e) => {
+        deleteTodoFromArray(todo.id);
+        const deleteTodoContainer = e.target.closest(".todo-container")
+        deleteTodoContainer.remove();
     });
-}
+    todoContainer.appendChild(todoCard);
+  });
+};
 
 export {newTodo,renderAllTodos}
 

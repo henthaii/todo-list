@@ -19,6 +19,7 @@ function newProject() {
             </form>
         </dialog>
         <h2></h2>
+        <button class="todo">New To-Do</button>
     `;
     return project;
 }
