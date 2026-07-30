@@ -6,7 +6,6 @@ import {newTodo,renderAllTodos} from "./todo-DOM.js"
 
 function todoSubmit(todoElement) {
     const form = todoElement.querySelector(".todo-form");
-    const container = todoElement.querySelector('h3');
     const dialog = todoElement.querySelector('.todo-dialog');
     const cancelButton = todoElement.querySelector('.cancel');
     const cancelXButton = todoElement.querySelector('.cancel-x');
@@ -41,11 +40,11 @@ function renderNewTodo() {
 }
 
 function clickingNewTodo() {
-    const button = document.querySelector(".todo");
-    if (button) {
+    const button = document.querySelectorAll(".todo");
+    button.forEach(button => {
         button.addEventListener("click",renderNewTodo);
-        console.log("Adding new todo.");
-    }
+    console.log("Adding new todo.");
+    });
 }
 
 export {todoSubmit, renderNewTodo, clickingNewTodo};

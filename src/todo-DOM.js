@@ -33,13 +33,13 @@ function newTodo() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
-        <h3></h3>
+        <div class="todo-target"></div>
     `;
     return toDo;
 }
 
 function renderAllTodos(){
-    const todoContainer = document.querySelector("h3");
+    const todoContainer = document.querySelector(".todo-target");
     todoContainer.innerHTML = "";
     mainTodo.forEach((todo) => {
         const todoCard = document.createElement("div");
@@ -56,8 +56,7 @@ function renderAllTodos(){
     const deleteButton = todoCard.querySelector(".delete");
     deleteButton.addEventListener("click", (e) => {
         deleteTodoFromArray(todo.id);
-        const deleteTodoContainer = e.target.closest(".todo-container")
-        deleteTodoContainer.remove();
+        todoCard.remove();
     });
     todoContainer.appendChild(todoCard);
   });
