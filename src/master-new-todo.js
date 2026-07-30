@@ -149,11 +149,17 @@ function renderNewTodo() {
 }
 
 function clickingNewTodo() {
-    const button = document.querySelector(".todo");
-    if (button) {
-        button.addEventListener("click",renderNewTodo);
-        console.log("Adding new todo.");
-    }
+    // Attach a single listener to the body or a stable main container
+    document.body.addEventListener("click", (event) => {
+    
+        // Check if the clicked element (or its closest ancestor) has the class 'todo'
+        const todoButton = event.target.closest(".todo");
+    
+        if (todoButton) {
+        console.log("Dynamic or static todo button clicked!");
+        renderNewTodo();
+        }
+    });
 }
 
 

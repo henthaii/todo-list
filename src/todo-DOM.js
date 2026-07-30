@@ -56,8 +56,14 @@ function renderAllTodos(){
     const deleteButton = todoCard.querySelector(".delete");
     deleteButton.addEventListener("click", (e) => {
         deleteTodoFromArray(todo.id);
-        todoCard.remove();
+        const parentContainer = todoCard.closest(".todo-container");
+        if (parentContainer) {
+            parentContainer.remove();
+        } else {
+            todoCard.remove();
+        }
     });
+
     todoContainer.appendChild(todoCard);
   });
 };
