@@ -33,14 +33,17 @@ function newTodo() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
-        <div class="todo-target"></div>
     `;
     return toDo;
 }
 
 function renderAllTodos(){
-    const todoContainer = document.querySelector(".todo-target");
-    todoContainer.innerHTML = "";
+    const todoDisplayArea = document.querySelector(".project-main");
+    if (!todoDisplayArea) return;
+    
+    const existingCards = todoDisplayArea.querySelectorAll(".todo-card");
+    existingCards.forEach(card => card.remove());
+
     mainTodo.forEach((todo) => {
         const todoCard = document.createElement("div");
         todoCard.classList.add("todo-card");
@@ -54,17 +57,12 @@ function renderAllTodos(){
         `;
       
     const deleteButton = todoCard.querySelector(".delete");
-    deleteButton.addEventListener("click", (e) => {
+    deleteButton.addEventListener("click", () => {
         deleteTodoFromArray(todo.id);
-        const parentContainer = todoCard.closest(".todo-container");
-        if (parentContainer) {
-            parentContainer.remove();
-        } else {
-            todoCard.remove();
-        }
+        todoCard.remove();
     });
 
-    todoContainer.appendChild(todoCard);
+    todoDisplayArea.appendChild(todoCard);
   });
 };
 

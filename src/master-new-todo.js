@@ -39,12 +39,12 @@ function deleteTodoFromArray(id) {
     const index = mainTodo.findIndex(todo => todo.id === id);
     if (index !== -1) {
         mainTodo.splice(index,1);
-    }
-}
+    };
+};
 
 export {mainTodo, Todo, addTodoToArray, getTodoName, deleteTodoFromArray}
 
-import {mainTodo} from "./todo-component.js"
+import {mainTodo, deleteTodoFromArray} from "./todo-component.js"
 
 function newTodo() {
     const toDo = document.createElement('div');
@@ -77,13 +77,13 @@ function newTodo() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
-        <h3></h3>
+        <div class="todo-target"></div>
     `;
     return toDo;
 }
 
 function renderAllTodos(){
-    const todoContainer = document.querySelector("h3");
+    const todoContainer = document.querySelector(".todo-target");
     todoContainer.innerHTML = "";
     mainTodo.forEach((todo) => {
         const todoCard = document.createElement("div");
@@ -96,18 +96,23 @@ function renderAllTodos(){
             <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
             <button class="delete">Delete</button>
         `;
-          
+      
     const deleteButton = todoCard.querySelector(".delete");
     deleteButton.addEventListener("click", (e) => {
         deleteTodoFromArray(todo.id);
-        const deleteTodoContainer = e.target.closest(".todo-container")
-        deleteTodoContainer.remove();
+        const parentContainer = todoCard.closest(".todo-container");
+        if (parentContainer) {
+            parentContainer.remove();
+        } else {
+            todoCard.remove();
+        }
     });
+
     todoContainer.appendChild(todoCard);
   });
 };
 
-export {newTodo,renderAllTodos}
+export {newTodo, renderAllTodos}
 
 import {getTodoName} from "./todo-component.js"
 import {newTodo,renderAllTodos} from "./todo-DOM.js"
@@ -310,11 +315,19 @@ function renderNewTodo() {
 }
 
 function clickingNewTodo() {
-    const button = document.querySelector(".todo");
-    button.forEach(button => {
-        button.addEventListener("click",renderNewTodo);
-    console.log("Adding new todo.");
-    });
+    // Attach a single listener to the body or a stable main container
+    document.body.addEventListener("click", (event) => {
+        // Check if the clicked element (or its closest ancestor) has the class 'todo'
+        const todoButton = event.target.closest(".todo");
+        if (todoButton) {
+            const parentCard = todoButton.closest(".project-card");
+            if (parentCard) {
+                renderNewTodo(parentCard);
+            } else {
+                    renderNewTodo(".project-main");
+            };
+            }
+        });
 }
 
 export {todoSubmit, renderNewTodo, clickingNewTodo};

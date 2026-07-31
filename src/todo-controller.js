@@ -18,6 +18,7 @@ function todoSubmit(todoElement) {
         renderAllTodos();
         dialog.close();
         dialog.remove();
+        todoElement.remove();
     });
 
     cancelButton.addEventListener('click', () => {
