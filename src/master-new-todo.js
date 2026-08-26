@@ -78,14 +78,17 @@ function newTodo() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
-        <div class="todo-target"></div>
     `;
     return toDo;
 }
 
 function renderAllTodos(){
-    const todoContainer = document.querySelector(".todo-target");
-    todoContainer.innerHTML = "";
+    const todoDisplayArea = document.querySelector(".project-main");
+    if (!todoDisplayArea) return;
+    
+    const existingCards = todoDisplayArea.querySelectorAll(".todo-card");
+    existingCards.forEach(card => card.remove());
+
     mainTodo.forEach((todo) => {
         const todoCard = document.createElement("div");
         todoCard.classList.add("todo-card");
@@ -99,17 +102,12 @@ function renderAllTodos(){
         `;
       
     const deleteButton = todoCard.querySelector(".delete");
-    deleteButton.addEventListener("click", (e) => {
+    deleteButton.addEventListener("click", () => {
         deleteTodoFromArray(todo.id);
-        const parentContainer = todoCard.closest(".todo-container");
-        if (parentContainer) {
-            parentContainer.remove();
-        } else {
-            todoCard.remove();
-        }
+        todoCard.remove();
     });
 
-    todoContainer.appendChild(todoCard);
+    todoDisplayArea.appendChild(todoCard);
   });
 };
 
@@ -120,7 +118,6 @@ import {newTodo,renderAllTodos} from "./todo-DOM.js"
 
 function todoSubmit(todoElement) {
     const form = todoElement.querySelector(".todo-form");
-    const container = todoElement.querySelector('h3');
     const dialog = todoElement.querySelector('.todo-dialog');
     const cancelButton = todoElement.querySelector('.cancel');
     const cancelXButton = todoElement.querySelector('.cancel-x');
@@ -133,6 +130,7 @@ function todoSubmit(todoElement) {
         renderAllTodos();
         dialog.close();
         dialog.remove();
+        todoElement.remove();
     });
 
     cancelButton.addEventListener('click', () => {
@@ -144,11 +142,15 @@ function todoSubmit(todoElement) {
         dialog.close();
         todoElement.remove();
     }); 
-// pretty sure need to add closest project logic to target it
+
 }
 
-function renderNewTodo() {
-    const todoContainer = document.querySelector(".project-main");
+function renderNewTodo(target = ".project-main") {
+    const todoContainer = typeof target === "string" 
+    ? document.querySelector(target) 
+    : target.querySelector(".project-main") || document.querySelector(".project-main");
+    
+    if (!todoContainer) return;
     const appendNewTodo = newTodo();
     todoContainer.appendChild(appendNewTodo);
     todoSubmit(appendNewTodo);
@@ -157,21 +159,17 @@ function renderNewTodo() {
 function clickingNewTodo() {
     // Attach a single listener to the body or a stable main container
     document.body.addEventListener("click", (event) => {
-    
         // Check if the clicked element (or its closest ancestor) has the class 'todo'
         const todoButton = event.target.closest(".todo");
-    
         if (todoButton) {
-            const targetProject = todoButton.closest(".project-main");
-            console.log("Dynamic or static todo button clicked!");
-        renderNewTodo();
-        }
-    });
+            const parentCard = todoButton.closest(".project-card");
+            if (parentCard) {
+                renderNewTodo(parentCard);
+            } else {
+                    renderNewTodo(".project-main");
+            };
+            }
+        });
 }
 
-
-
-export {todoSubmit,renderNewTodo,clickingNewTodo};
-
-
-
+export {todoSubmit, renderNewTodo, clickingNewTodo};

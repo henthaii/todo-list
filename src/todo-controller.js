@@ -33,8 +33,12 @@ function todoSubmit(todoElement) {
 
 }
 
-function renderNewTodo() {
-    const todoContainer = document.querySelector(".project-main");
+function renderNewTodo(target = ".project-main") {
+    const todoContainer = typeof target === "string" 
+    ? document.querySelector(target) 
+    : target;
+    
+    if (!todoContainer) return;
     const appendNewTodo = newTodo();
     todoContainer.appendChild(appendNewTodo);
     todoSubmit(appendNewTodo);
