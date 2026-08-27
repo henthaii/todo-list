@@ -37,8 +37,10 @@ function newTodo() {
     return toDo;
 }
 
-function renderAllTodos(){
-    const todoDisplayArea = document.querySelector(".project-main");
+function renderAllTodos(target = ".project-main"){
+    const todoDisplayArea = typeof target === "string" 
+        ? document.querySelector(target) 
+        : target;
     if (!todoDisplayArea) return;
     
     const existingCards = todoDisplayArea.querySelectorAll(".todo-card");

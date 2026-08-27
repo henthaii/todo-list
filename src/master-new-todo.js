@@ -82,8 +82,10 @@ function newTodo() {
     return toDo;
 }
 
-function renderAllTodos(){
-    const todoDisplayArea = document.querySelector(".project-main");
+function renderAllTodos(target = ".project-main"){
+    const todoDisplayArea = typeof target === "string" 
+        ? document.querySelector(target) 
+        : target;
     if (!todoDisplayArea) return;
     
     const existingCards = todoDisplayArea.querySelectorAll(".todo-card");
@@ -148,7 +150,7 @@ function todoSubmit(todoElement) {
 function renderNewTodo(target = ".project-main") {
     const todoContainer = typeof target === "string" 
     ? document.querySelector(target) 
-    : target.querySelector(".project-main") || document.querySelector(".project-main");
+    : target;
     
     if (!todoContainer) return;
     const appendNewTodo = newTodo();
@@ -162,9 +164,9 @@ function clickingNewTodo() {
         // Check if the clicked element (or its closest ancestor) has the class 'todo'
         const todoButton = event.target.closest(".todo");
         if (todoButton) {
-            const parentCard = todoButton.closest(".project-card");
-            if (parentCard) {
-                renderNewTodo(parentCard);
+            const targetContainer = todoButton.closest(".project-card, .project-main");
+            if (targetContainer) {
+                renderNewTodo(targetContainer);
             } else {
                     renderNewTodo(".project-main");
             };

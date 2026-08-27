@@ -4,7 +4,7 @@
 import {getTodoName} from "./todo-component.js"
 import {newTodo,renderAllTodos} from "./todo-DOM.js"
 
-function todoSubmit(todoElement) {
+function todoSubmit(todoElement, targetContainer) {
     const form = todoElement.querySelector(".todo-form");
     const dialog = todoElement.querySelector('.todo-dialog');
     const cancelButton = todoElement.querySelector('.cancel');
@@ -15,7 +15,7 @@ function todoSubmit(todoElement) {
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         getTodoName(form);
-        renderAllTodos();
+        renderAllTodos(targetContainer);
         dialog.close();
         dialog.remove();
         todoElement.remove();
@@ -50,11 +50,11 @@ function clickingNewTodo() {
         // Check if the clicked element (or its closest ancestor) has the class 'todo'
         const todoButton = event.target.closest(".todo");
         if (todoButton) {
-            const parentCard = todoButton.closest(".project-card");
-            if (parentCard) {
-                renderNewTodo(parentCard);
+            const targetContainer = todoButton.closest(".project-card, .project-main");
+            if (targetContainer) {
+                renderNewTodo(targetContainer);
             } else {
-                    renderNewTodo(".project-main");
+                renderNewTodo(".project-main");
             };
             }
         });
