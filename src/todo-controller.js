@@ -50,7 +50,7 @@ function clickingNewTodo() {
         // Check if the clicked element (or its closest ancestor) has the class 'todo'
         const todoButton = event.target.closest(".todo");
         if (todoButton) {
-            const targetContainer = todoButton.closest(".project-card, .project-main");
+            const targetContainer = todoButton.closest(".project-card") || document.querySelector(".project-main");
             if (targetContainer) {
                 renderNewTodo(targetContainer);
             } else {
