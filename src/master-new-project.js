@@ -2,6 +2,26 @@
 
 // how tf do i add a new array based on newproject being created
 
+
+// not sure if i need this section, started copying but hten it deviated
+const projects = [];
+
+class Project {
+    constructor(name) {
+        this.id = crypto.randomUUID();
+        this.name = name;
+        this.todos = [];
+    }
+}
+
+function addProjectToArray(name) {
+    const project = new Project(name);
+    project.push(project);
+    return project;
+}
+
+// ends here
+
 function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');
@@ -18,21 +38,23 @@ function newProject() {
             </form>
         </dialog>
         <h2></h2>
+        <button class="todo">New To-Do</button>
     `;
     return project;
 }
 
-export {newProject};
 
+// Form information handler/data extraction
 function getProjectName(formElement) {
     const formData = new FormData(formElement);
     return formData.get("project-name");
 }
 
-export {getProjectName}
+export {newProject,getProjectName}
 
-import {getProjectName} from "./get-project-name.js"
+import {newProject,getProjectName} from "./project-component.js"
 
+// This will handle the modal info and form actions
 function formSubmit(projectElement) {
     const form = projectElement.querySelector("#project-form");
     const heading = projectElement.querySelector('h2');
@@ -58,15 +80,10 @@ function formSubmit(projectElement) {
         dialog.close();
         projectElement.remove();
     }); 
-
-    
 }
 
-export {formSubmit}
 
-import {newProject} from "./new-project.js"
-import {formSubmit} from "./form-submit.js"
-
+// This will handle adding the new project to the UI
 function renderNewProject() {
     const projectContainer = document.querySelector(".container");
     const appendNewProject = newProject();
@@ -74,19 +91,15 @@ function renderNewProject() {
     formSubmit(appendNewProject); // adds DOM to the formSubmit function and fills in the "projectElement", also adds the form data
 }
 
-export {renderNewProject};
 
-import {renderNewProject} from "./render-new-project.js"
-
-function addingProject() {
-    renderNewProject();
-    console.log("Adding new project.");
-}
-
+// Initializing clicks
 function clickingNewProject() {
     const button = document.querySelector(".project");
     if (button) {
-        button.addEventListener("click",addingProject);
+        button.addEventListener("click",() => {
+            renderNewProject();
+            console.log("Adding new project.");
+        });
     }
 }
 

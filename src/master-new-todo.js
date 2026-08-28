@@ -8,7 +8,7 @@
 
 
 
-const mainTodo = [];
+const mainTodo = {};
 
 class Todo {
     constructor(title,description,dueDate,priority) {
