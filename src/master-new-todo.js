@@ -20,15 +20,19 @@ class Todo {
     };
 };
 
-function addTodoToArray(title,description,dueDate,priority) {
+function addTodoToArray(projectID,title,description,dueDate,priority) {
     const newTodo = new Todo(title,description,dueDate,priority);
-    mainTodo.push(newTodo);
+    if (!mainTodo[projectId]) {
+        mainTodo[projectId] = [];
+    }
+    mainTodo[projectId].push(newTodo);
     return newTodo;
 }
 
-function getTodoName(formElement) {
+function getTodoName(formElement, projectId) {
     const formData = new FormData(formElement);
     return addTodoToArray(
+        projectId,
         formData.get("title"),
         formData.get("description"),
         formData.get("due-date"),
@@ -36,10 +40,11 @@ function getTodoName(formElement) {
     );
 };
 
-function deleteTodoFromArray(id) {
-    const index = mainTodo.findIndex(todo => todo.id === id);
+function deleteTodoFromArray(projectId,id) {
+    if (!mainTodo[projectId]) return;
+    const index = mainTodo[projectId].findIndex(todo => todo.id === id);
     if (index !== -1) {
-        mainTodo.splice(index,1);
+        mainTodo[projectId].splice(index,1);
     };
 };
 
@@ -82,16 +87,15 @@ function newTodo() {
     return toDo;
 }
 
-function renderAllTodos(target = ".project-main"){
-    const todoDisplayArea = typeof target === "string" 
-        ? document.querySelector(target) 
-        : target;
-    if (!todoDisplayArea) return;
+function renderAllTodos(projectCard,projectId){
+    if (!projectCard) return;
     
-    const existingCards = todoDisplayArea.querySelectorAll(".todo-card");
+    const existingCards = projectCard.querySelectorAll(".todo-card");
     existingCards.forEach(card => card.remove());
 
-    mainTodo.forEach((todo) => {
+    const specificTodos = mainTodo[projectId] || [];
+
+    specificTodos.forEach((todo) => {
         const todoCard = document.createElement("div");
         todoCard.classList.add("todo-card");
         todoCard.dataset.id = todo.id;
@@ -105,11 +109,11 @@ function renderAllTodos(target = ".project-main"){
       
     const deleteButton = todoCard.querySelector(".delete");
     deleteButton.addEventListener("click", () => {
-        deleteTodoFromArray(todo.id);
+        deleteTodoFromArray(projectId, todo.id);
         todoCard.remove();
     });
 
-    todoDisplayArea.appendChild(todoCard);
+    projectCard.appendChild(todoCard);
   });
 };
 
@@ -118,7 +122,7 @@ export {newTodo, renderAllTodos}
 import {getTodoName} from "./todo-component.js"
 import {newTodo,renderAllTodos} from "./todo-DOM.js"
 
-function todoSubmit(todoElement) {
+function todoSubmit(todoElement, projectCard, projectId) {
     const form = todoElement.querySelector(".todo-form");
     const dialog = todoElement.querySelector('.todo-dialog');
     const cancelButton = todoElement.querySelector('.cancel');
@@ -128,8 +132,8 @@ function todoSubmit(todoElement) {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        getTodoName(form);
-        renderAllTodos();
+        getTodoName(form, projectId);
+        renderAllTodos(projectCard, projectId);
         dialog.close();
         dialog.remove();
         todoElement.remove();
@@ -147,11 +151,7 @@ function todoSubmit(todoElement) {
 
 }
 
-function renderNewTodo(target = ".project-main") {
-    const todoContainer = typeof target === "string" 
-    ? document.querySelector(target) 
-    : target;
-    
+function renderNewTodo(projectCard, projectId) {
     if (!todoContainer) return;
     const appendNewTodo = newTodo();
     todoContainer.appendChild(appendNewTodo);
