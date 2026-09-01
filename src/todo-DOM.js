@@ -37,16 +37,15 @@ function newTodo() {
     return toDo;
 }
 
-function renderAllTodos(target = ".project-main"){
-    const todoDisplayArea = typeof target === "string" 
-        ? document.querySelector(target) 
-        : target;
-    if (!todoDisplayArea) return;
+function renderAllTodos(projectCard,projectId){
+    if (!projectCard) return;
     
-    const existingCards = todoDisplayArea.querySelectorAll(".todo-card");
+    const existingCards = projectCard.querySelectorAll(".todo-card");
     existingCards.forEach(card => card.remove());
 
-    mainTodo.forEach((todo) => {
+    const specificTodos = mainTodo[projectId] || [];
+
+    specificTodos.forEach((todo) => {
         const todoCard = document.createElement("div");
         todoCard.classList.add("todo-card");
         todoCard.dataset.id = todo.id;
@@ -60,11 +59,11 @@ function renderAllTodos(target = ".project-main"){
       
     const deleteButton = todoCard.querySelector(".delete");
     deleteButton.addEventListener("click", () => {
-        deleteTodoFromArray(todo.id);
+        deleteTodoFromArray(projectId, todo.id);
         todoCard.remove();
     });
 
-    todoDisplayArea.appendChild(todoCard);
+    projectCard.appendChild(todoCard);
   });
 };
 

@@ -16,6 +16,7 @@ function formSubmit(projectElement) {
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         heading.textContent = getProjectName(form);
+        projectElement.dataset.projectId = crypto.randomUUID();
         dialog.close();
         dialog.remove();
     });

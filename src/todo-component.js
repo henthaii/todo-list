@@ -1,7 +1,7 @@
 // This will manage the data and parts for controller
 // and DOM
 
-const mainTodo = [];
+const mainTodo = {};
 
 class Todo {
     constructor(title,description,dueDate,priority) {
@@ -13,15 +13,19 @@ class Todo {
     };
 };
 
-function addTodoToArray(title,description,dueDate,priority) {
+function addTodoToArray(projectId,title,description,dueDate,priority) {
     const newTodo = new Todo(title,description,dueDate,priority);
-    mainTodo.push(newTodo);
+    if (!mainTodo[projectId]) {
+        mainTodo[projectId] = [];
+    }
+    mainTodo[projectId].push(newTodo);
     return newTodo;
 }
 
-function getTodoName(formElement) {
+function getTodoName(formElement, projectId) {
     const formData = new FormData(formElement);
     return addTodoToArray(
+        projectId,
         formData.get("title"),
         formData.get("description"),
         formData.get("due-date"),
@@ -29,10 +33,11 @@ function getTodoName(formElement) {
     );
 };
 
-function deleteTodoFromArray(id) {
-    const index = mainTodo.findIndex(todo => todo.id === id);
+function deleteTodoFromArray(projectId,id) {
+    if (!mainTodo[projectId]) return;
+    const index = mainTodo[projectId].findIndex(todo => todo.id === id);
     if (index !== -1) {
-        mainTodo.splice(index,1);
+        mainTodo[projectId].splice(index,1);
     };
 };
 

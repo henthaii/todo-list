@@ -4,7 +4,7 @@
 import {getTodoName} from "./todo-component.js"
 import {newTodo,renderAllTodos} from "./todo-DOM.js"
 
-function todoSubmit(todoElement, targetContainer) {
+function todoSubmit(todoElement, projectCard, projectId) {
     const form = todoElement.querySelector(".todo-form");
     const dialog = todoElement.querySelector('.todo-dialog');
     const cancelButton = todoElement.querySelector('.cancel');
@@ -14,8 +14,8 @@ function todoSubmit(todoElement, targetContainer) {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        getTodoName(form);
-        renderAllTodos(targetContainer);
+        getTodoName(form, projectId);
+        renderAllTodos(projectCard, projectId);
         dialog.close();
         dialog.remove();
         todoElement.remove();
@@ -33,15 +33,11 @@ function todoSubmit(todoElement, targetContainer) {
 
 }
 
-function renderNewTodo(target = ".project-main") {
-    const todoContainer = typeof target === "string" 
-    ? document.querySelector(target) 
-    : target;
-    
-    if (!todoContainer) return;
+function renderNewTodo(projectCard, projectId) {
+    if (!projectCard) return;
     const appendNewTodo = newTodo();
-    todoContainer.appendChild(appendNewTodo);
-    todoSubmit(appendNewTodo);
+    projectCard.appendChild(appendNewTodo);
+    todoSubmit(appendNewTodo, projectCard, projectId);
 }
 
 function clickingNewTodo() {
@@ -50,11 +46,10 @@ function clickingNewTodo() {
         // Check if the clicked element (or its closest ancestor) has the class 'todo'
         const todoButton = event.target.closest(".todo");
         if (todoButton) {
-            const targetContainer = todoButton.closest(".project-card") || document.querySelector(".project-main");
-            if (targetContainer) {
-                renderNewTodo(targetContainer);
-            } else {
-                renderNewTodo(".project-main");
+            const projectCard = todoButton.closest(".project-card")
+            if (projectCard) {
+                const projectId = projectCard.dataset.projectId;
+                renderNewTodo(projectCard, projectId);
             };
             }
         });

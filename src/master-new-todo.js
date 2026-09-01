@@ -20,7 +20,7 @@ class Todo {
     };
 };
 
-function addTodoToArray(projectID,title,description,dueDate,priority) {
+function addTodoToArray(projectId,title,description,dueDate,priority) {
     const newTodo = new Todo(title,description,dueDate,priority);
     if (!mainTodo[projectId]) {
         mainTodo[projectId] = [];
@@ -152,10 +152,10 @@ function todoSubmit(todoElement, projectCard, projectId) {
 }
 
 function renderNewTodo(projectCard, projectId) {
-    if (!todoContainer) return;
+    if (!projectCard) return;
     const appendNewTodo = newTodo();
-    todoContainer.appendChild(appendNewTodo);
-    todoSubmit(appendNewTodo);
+    projectCard.appendChild(appendNewTodo);
+    todoSubmit(appendNewTodo, projectCard, projectId);
 }
 
 function clickingNewTodo() {
@@ -164,111 +164,13 @@ function clickingNewTodo() {
         // Check if the clicked element (or its closest ancestor) has the class 'todo'
         const todoButton = event.target.closest(".todo");
         if (todoButton) {
-            const targetContainer = todoButton.closest(".project-card") || document.querySelector(".project-main");
-            if (targetContainer) {
-                renderNewTodo(targetContainer);
-            } else {
-                    renderNewTodo(".project-main");
+            const projectCard = todoButton.closest(".project-card") || todo.Button.closest(".project-main")
+            if (projectCard) {
+                const projectId = projectCard.dataset.projectId;
+                renderNewTodo(projectCard, projectId);
             };
             }
         });
 }
 
 export {todoSubmit, renderNewTodo, clickingNewTodo};
-
-
-// google suggested this as solution for project ids
-
-// Remove the global mainTodo array entirely if you use this method
-class Todo {
-    constructor(title, description, dueDate, priority) {
-        this.id = crypto.randomUUID(); 
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority;
-    }
-}
-
-// Pass the array you want to push to
-function addTodoToArray(array, title, description, dueDate, priority) {
-    const newTodo = new Todo(title, description, dueDate, priority);
-    array.push(newTodo);
-    return newTodo;
-}
-
-function getTodoName(formElement, targetArray) {
-    const formData = new FormData(formElement);
-    return addTodoToArray(
-        targetArray,
-        formData.get("title"),
-        formData.get("description"),
-        formData.get("due-date"),
-        formData.get("priority")
-    );
-}
-
-function deleteTodoFromArray(array, id) {
-    const index = array.findIndex(todo => todo.id === id);
-    if (index !== -1) {
-        array.splice(index, 1);
-    }
-}
-
-export { Todo, addTodoToArray, getTodoName, deleteTodoFromArray };
-
-function todoSubmit(todoElement, targetContainer) {
-    const form = todoElement.querySelector(".todo-form");
-    const dialog = todoElement.querySelector('.todo-dialog');
-    
-    // If this container doesn't have a todo list yet, give it one
-    if (!targetContainer.todos) {
-        targetContainer.todos = [];
-    }
-
-    dialog.showModal();
-
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
-        
-        // Save the todo into this container's specific array
-        getTodoName(form, targetContainer.todos);
-        
-        renderAllTodos(targetContainer);
-        
-        dialog.close();
-        dialog.remove();
-        todoElement.remove();
-    });
-    // ... keep cancel listeners the same ...
-}
-
-function renderAllTodos(targetContainer) {
-    if (!targetContainer) return;
-    
-    // Clear old cards in this container
-    const existingCards = targetContainer.querySelectorAll(".todo-card");
-    existingCards.forEach(card => card.remove());
-
-    // Use the container's private array instead of a global one
-    const localTodos = targetContainer.todos || [];
-
-    localTodos.forEach((todo) => {
-        const todoCard = document.createElement("div");
-        todoCard.classList.add("todo-card");
-        todoCard.innerHTML = `
-            <h3>To-do: ${todo.title}</h3>
-            <p>Description: ${todo.description}</p>
-            <small>Due: ${todo.dueDate}</small>
-            <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
-            <button class="delete">Delete</button>
-        `;
-      
-        todoCard.querySelector(".delete").addEventListener("click", () => {
-            deleteTodoFromArray(targetContainer.todos, todo.id);
-            todoCard.remove();
-        });
-
-        targetContainer.appendChild(todoCard);
-    });
-}
