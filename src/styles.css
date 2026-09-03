@@ -1,0 +1,19 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.todo-card {
+    border: 1px solid black;
+}
+
+.todo-card .extra-fields {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease-out, opacity 0.2s ease-out;
+}
+
+.todo-card.expanded .extra-fields {
+    max-height: 150px;
+    opacity: 1;
+}

@@ -51,10 +51,15 @@ function renderAllTodos(projectCard,projectId){
         todoCard.dataset.id = todo.id;
         todoCard.innerHTML = `
             <h3>To-do: ${todo.title}</h3>
-            <p>Description: ${todo.description}</p>
             <small>Due: ${todo.dueDate}</small>
-            <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
+            
+            <div class="extra-fields">
+                <p>Description: ${todo.description}</p>
+                <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
+            </div>
+
             <button class="delete">Delete</button>
+            <button class="toggle">Show More</button>
         `;
       
     const deleteButton = todoCard.querySelector(".delete");
@@ -63,6 +68,18 @@ function renderAllTodos(projectCard,projectId){
         todoCard.remove();
     });
 
+    const toggleButton = todoCard.querySelector(".toggle");
+    toggleButton.addEventListener("click", () => {
+      todoCard.classList.toggle("expanded");
+      
+      // Dynamic button text update
+      if (todoCard.classList.contains("expanded")) {
+        toggleButton.textContent = "Show Less";
+      } else {
+        toggleButton.textContent = "Show More";
+      }
+    });
+    
     projectCard.appendChild(todoCard);
   });
 };
