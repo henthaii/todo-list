@@ -50,6 +50,10 @@ function renderAllTodos(projectCard,projectId){
         todoCard.classList.add("todo-card");
         todoCard.dataset.id = todo.id;
         todoCard.innerHTML = `
+            <label>
+                <input type="checkbox" name="done" value="done">
+            </label>
+
             <div class="main-fields">
                 <h3>To-do: ${todo.title}</h3>
                 <small>Due: ${todo.dueDate}</small>
