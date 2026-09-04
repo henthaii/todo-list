@@ -94,22 +94,28 @@ function renderAllTodos(projectCard,projectId){
     existingCards.forEach(card => card.remove());
 
     const specificTodos = mainTodo[projectId] || [];
-
+// need to sort buttons
+// do i even need the stupid toggle button (most likely yes to keep it simple)
     specificTodos.forEach((todo) => {
         const todoCard = document.createElement("div");
         todoCard.classList.add("todo-card");
         todoCard.dataset.id = todo.id;
         todoCard.innerHTML = `
-            <h3>To-do: ${todo.title}</h3>
-            <small>Due: ${todo.dueDate}</small>
+            <div class="main-fields">
+                <h3>To-do: ${todo.title}</h3>
+                <small>Due: ${todo.dueDate}</small>
+            </div>
             
             <div class="extra-fields">
                 <p>Description: ${todo.description}</p>
                 <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
             </div>
-
-            <button class="delete">Delete</button>
-            <button class="toggle">Show More</button>
+            
+            <div class="buttons>
+                <button class="edit">Edit</button>
+                <button class="delete">Delete</button>
+                <button class="toggle">Show More</button>
+            </div>
         `;
       
     const deleteButton = todoCard.querySelector(".delete");
