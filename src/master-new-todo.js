@@ -97,7 +97,6 @@ function renderAllTodos(projectCard,projectId){
 // need to sort buttons
 // do i even need the stupid toggle button (most likely yes to keep it simple)
 // buttons need to be bottom right
-// 
     specificTodos.forEach((todo) => {
         const todoCard = document.createElement("div");
         todoCard.classList.add("todo-card");
@@ -193,7 +192,7 @@ function clickingNewTodo() {
         // Check if the clicked element (or its closest ancestor) has the class 'todo'
         const todoButton = event.target.closest(".todo");
         if (todoButton) {
-            const projectCard = todoButton.closest(".project-card") || todo.Button.closest(".project-main")
+            const projectCard = todoButton.closest(".project-card")
             if (projectCard) {
                 const projectId = projectCard.dataset.projectId;
                 renderNewTodo(projectCard, projectId);
