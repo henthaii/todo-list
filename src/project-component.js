@@ -18,8 +18,10 @@ function newProject() {
                 <button type="button" class="cancel">Cancel</button>
             </form>
         </dialog>
-        <h2></h2>
-        <button class="todo">New To-Do</button>
+        <div class="project-header">
+            <h2></h2>
+            <button class="todo">New To-Do</button>
+        </div>
     `;
     return project;
 }

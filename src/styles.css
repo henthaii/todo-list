@@ -2,9 +2,22 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.todo {
+    height: 50%;
+}
+
 .todo-card {
     border: 1px solid black;
     margin: 10px;
+    border-radius: 10px;
+    padding: 5px;
 }
 
 .todo-card .extra-fields {
@@ -17,4 +30,8 @@ body {
 .todo-card.expanded .extra-fields {
     max-height: 150px;
     opacity: 1;
+}
+
+h3 {
+    margin: 1%;
 }
