@@ -48,9 +48,21 @@ function deleteTodoFromArray(projectId,id) {
     };
 };
 
-export {mainTodo, Todo, addTodoToArray, getTodoName, deleteTodoFromArray}
+function updateTodoInArray(projectId, id, title, description, dueDate, priority) {
+  if (!mainTodo[projectId]) return null;
+  const todo = mainTodo[projectId].find(t => t.id === id);
+  if (todo) {
+    todo.title = title;
+    todo.description = description;
+    todo.dueDate = dueDate;
+    todo.priority = priority;
+  }
+  return todo;
+}
 
-import {mainTodo, deleteTodoFromArray} from "./todo-component.js"
+export {mainTodo, Todo, addTodoToArray, getTodoName, deleteTodoFromArray, updateTodoInArray}
+
+import {mainTodo, deleteTodoFromArray, updateTodoInArray} from "./todo-component.js"
 
 function newTodo() {
     const toDo = document.createElement('div');
@@ -94,9 +106,6 @@ function renderAllTodos(projectCard,projectId){
     existingCards.forEach(card => card.remove());
 
     const specificTodos = mainTodo[projectId] || [];
-// need to sort buttons
-// do i even need the stupid toggle button (most likely yes to keep it simple)
-// buttons need to be bottom right
     specificTodos.forEach((todo) => {
         const todoCard = document.createElement("div");
         todoCard.classList.add("todo-card");
@@ -140,6 +149,14 @@ function renderAllTodos(projectCard,projectId){
         toggleButton.textContent = "Show More";
       }
     });
+
+    const editButton = todoCard.querySelector(".edit");
+    editButton.addEventListener("click", () => {
+    // We pass the existing todo object so the form knows it's editing
+    renderEditTodo(projectCard, projectId, todo);
+    });
+
+
 
     projectCard.appendChild(todoCard);
   });
