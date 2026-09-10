@@ -7,15 +7,17 @@ function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');
     project.innerHTML = `
-        <dialog id="dialog">
+        <dialog id="project-dialog">
             <form id="project-form">
                 <button type="button" class="cancel-x">x</button>
                 <div class="label">
                     <label for="project-name">Project Name:</label>
                     <input type="text" name="project-name" id="project-name">
                 </div>
-                <button type="submit">Submit</button>
-                <button type="button" class="cancel">Cancel</button>
+                <div class="dialog-buttons">
+                    <button type="submit">Submit</button>
+                    <button type="button" class="cancel">Cancel</button>
+                </div>
             </form>
         </dialog>
         <div class="project-header">

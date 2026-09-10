@@ -55,20 +55,20 @@ function renderAllTodos(projectCard,projectId){
                 <input type="checkbox" name="done" value="done">
             </label>
 
-            <div class="main-fields">
-                <h3>To-do: ${todo.title}</h3>
-                <small>Due: ${todo.dueDate}</small>
-            </div>
-            
-            <div class="extra-fields">
-                <p>Description: ${todo.description}</p>
-                <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
-            </div>
-            
-            <div class="buttons">
-                <button class="edit">Edit</button>
-                <button class="delete">Delete</button>
-                <button class="toggle">Show More</button>
+            <div class="todo-fields">
+                <div class="main-fields">
+                    <h3>To-do: ${todo.title}</h3>
+                    <p>Due: ${todo.dueDate}</small>
+                </div>
+                <div class="extra-fields">
+                    <p>Description: ${todo.description}</p>
+                    <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
+                </div>
+                <div class="buttons">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                    <button class="toggle">Show More</button>
+                </div>
             </div>
         `;
       
