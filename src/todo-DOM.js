@@ -1,6 +1,7 @@
 // This will manage the visual structure and rendering
 
-import {mainTodo, deleteTodoFromArray} from "./todo-component.js"
+import {mainTodo, deleteTodoFromArray, updateTodoInArray} from "./todo-component.js"
+import {renderEditTodo} from "./todo-controller.js"
 
 function newTodo() {
     const toDo = document.createElement('div');
@@ -87,6 +88,12 @@ function renderAllTodos(projectCard,projectId){
       } else {
         toggleButton.textContent = "Show More";
       }
+    });
+
+    const editButton = todoCard.querySelector(".edit");
+    editButton.addEventListener("click", () => {
+    // We pass the existing todo object so the form knows it's editing
+    renderEditTodo(projectCard, projectId, todo);
     });
     
     projectCard.appendChild(todoCard);

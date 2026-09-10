@@ -41,6 +41,16 @@ function deleteTodoFromArray(projectId,id) {
     };
 };
 
+function updateTodoInArray(projectId, id, title, description, dueDate, priority) {
+  if (!mainTodo[projectId]) return null;
+  const todo = mainTodo[projectId].find(t => t.id === id);
+  if (todo) {
+    todo.title = title;
+    todo.description = description;
+    todo.dueDate = dueDate;
+    todo.priority = priority;
+  }
+  return todo;
+}
 
-
-export {mainTodo, Todo, addTodoToArray, getTodoName, deleteTodoFromArray}
+export { mainTodo, Todo, addTodoToArray, getTodoName, deleteTodoFromArray, updateTodoInArray };

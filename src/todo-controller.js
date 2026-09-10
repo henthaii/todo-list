@@ -1,8 +1,8 @@
 // This will handle coordinating and modal event
 // interactions
 
-import {getTodoName} from "./todo-component.js"
-import {newTodo,renderAllTodos} from "./todo-DOM.js"
+import {getTodoName, updateTodoInArray} from "./todo-component.js"
+import {newTodo, renderAllTodos} from "./todo-DOM.js"
 
 function todoSubmit(todoElement, projectCard, projectId) {
     const form = todoElement.querySelector(".todo-form");
@@ -55,4 +55,49 @@ function clickingNewTodo() {
         });
 }
 
-export {todoSubmit, renderNewTodo, clickingNewTodo};
+function renderEditTodo(projectCard, projectId, todo) {
+    if (!projectCard) return;
+    
+    const editTodoElement = newTodo();
+    projectCard.appendChild(editTodoElement);
+    
+    const form = editTodoElement.querySelector(".todo-form");
+    const dialog = editTodoElement.querySelector('.todo-dialog');
+    const cancelButton = editTodoElement.querySelector('.cancel');
+    const cancelXButton = editTodoElement.querySelector('.cancel-x');
+    
+    // Pre-populate the form inputs with existing data
+    form.querySelector('#title').value = todo.title;
+    form.querySelector('#description').value = todo.description;
+    form.querySelector('#due-date').value = todo.dueDate;
+    form.querySelector('[name="priority"]').value = todo.priority.toLowerCase();
+    
+    dialog.showModal();
+    
+    // Handle the submission for EDITING
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const formData = new FormData(form);
+        
+        // Update the array using our new function
+        updateTodoInArray(
+            projectId,
+            todo.id,
+            formData.get("title"),
+            formData.get("description"),
+            formData.get("due-date"),
+            formData.get("priority")
+        );
+        
+        renderAllTodos(projectCard, projectId); // Re-render DOM
+        dialog.close();
+        editTodoElement.remove();
+    });
+    
+    // Cancel listeners
+    const closeForm = () => { dialog.close(); editTodoElement.remove(); };
+    cancelButton.addEventListener('click', closeForm);
+    cancelXButton.addEventListener('click', closeForm);
+}
+
+export {todoSubmit, renderNewTodo, clickingNewTodo, renderEditTodo};
