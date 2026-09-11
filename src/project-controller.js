@@ -7,7 +7,7 @@ import {newProject,getProjectName} from "./project-component.js"
 function formSubmit(projectElement) {
     const form = projectElement.querySelector("#project-form");
     const heading = projectElement.querySelector('h2');
-    const dialog = projectElement.querySelector('#dialog');
+    const dialog = projectElement.querySelector('#project-dialog');
     const cancelButton = projectElement.querySelector('.cancel');
     const cancelXButton = projectElement.querySelector('.cancel-x');
 

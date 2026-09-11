@@ -6,7 +6,44 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px;
+    padding: 1%;
+}
+
+#project-dialog {
+    padding: 1%;
+}
+
+#project-form {
+    position: relative;
+    padding-top: 40px;
+    padding-inline: 24px;
+    padding-bottom: 24px;
+    border-radius: 8px;
+}
+
+.cancel-x {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.project-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .todo {

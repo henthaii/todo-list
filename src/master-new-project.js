@@ -4,24 +4,6 @@
 
 
 // not sure if i need this section, started copying but hten it deviated
-const projects = [];
-
-class Project {
-    constructor(name) {
-        this.id = crypto.randomUUID();
-        this.name = name;
-        this.todos = [];
-    }
-}
-
-function addProjectToArray(name) {
-    const project = new Project(name);
-    project.push(project);
-    return project;
-}
-
-// ends here
-
 function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');
@@ -39,8 +21,10 @@ function newProject() {
                 </div>
             </form>
         </dialog>
-        <h2></h2>
-        <button class="todo">New To-Do</button>
+        <div class="project-header">
+            <h2></h2>
+            <button class="todo">New To-Do</button>
+        </div>
     `;
     return project;
 }
@@ -60,7 +44,7 @@ import {newProject,getProjectName} from "./project-component.js"
 function formSubmit(projectElement) {
     const form = projectElement.querySelector("#project-form");
     const heading = projectElement.querySelector('h2');
-    const dialog = projectElement.querySelector('#dialog');
+    const dialog = projectElement.querySelector('#project-dialog');
     const cancelButton = projectElement.querySelector('.cancel');
     const cancelXButton = projectElement.querySelector('.cancel-x');
 

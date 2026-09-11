@@ -10,13 +10,15 @@ function newProject() {
         <dialog id="project-dialog">
             <form id="project-form">
                 <button type="button" class="cancel-x">x</button>
-                <div class="label">
-                    <label for="project-name">Project Name:</label>
-                    <input type="text" name="project-name" id="project-name">
-                </div>
-                <div class="dialog-buttons">
-                    <button type="submit">Submit</button>
-                    <button type="button" class="cancel">Cancel</button>
+                <div class="project-fields">
+                    <div class="label">
+                        <label for="project-name">Project Name:</label>
+                        <input type="text" name="project-name" id="project-name">
+                    </div>
+                    <div class="dialog-buttons">
+                        <button type="submit">Submit</button>
+                        <button type="button" class="cancel">Cancel</button>
+                    </div>
                 </div>
             </form>
         </dialog>
