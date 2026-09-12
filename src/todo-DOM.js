@@ -31,10 +31,10 @@ function newTodo() {
                             <option value="high">High</option>
                         </select>
                     </div>
-                </div>
-                <div class="dialog-buttons">
-                    <button type="submit">Submit</button>
-                    <button type="button" class="cancel">Cancel</button>
+                    <div class="dialog-buttons">
+                        <button type="submit">Submit</button>
+                        <button type="button" class="cancel">Cancel</button>
+                    </div>
                 </div>
             </form>
         </dialog>
