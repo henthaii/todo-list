@@ -41,7 +41,6 @@ function renderNewProject() {
     formSubmit(appendNewProject); // adds DOM to the formSubmit function and fills in the "projectElement", also adds the form data
 }
 
-
 // Initializing clicks
 function clickingNewProject() {
     const button = document.querySelector(".project");

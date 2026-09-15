@@ -58,7 +58,6 @@ function renderAllTodos(projectCard,projectId){
             <label>
                 <input type="checkbox" name="done" value="done">
             </label>
-
             <div class="todo-fields">
                 <div class="main-fields">
                     <h3>To-do: ${todo.title}</h3>
