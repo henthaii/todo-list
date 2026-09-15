@@ -16,12 +16,12 @@ function newTodo() {
                         <input type="text" name="title" id="title">
                     </div>
                     <div class="label">
-                        <label for="description">Description:</label>
-                        <input type="text" name="description" id="description">
-                    </div>
-                    <div class="label">
                         <label for="due-date">Due Date:</label>
                         <input type="text" name="due-date" id="due-date">
+                    </div>
+                    <div class="label">
+                        <label for="description">Description:</label>
+                        <input type="text" name="description" id="description">
                     </div>
                     <div class="label">
                         <label for="priority">Priority:</label>
@@ -66,7 +66,7 @@ function renderAllTodos(projectCard,projectId){
                 </div>
                 <div class="extra-fields">
                     <p>Description: ${todo.description}</p>
-                    <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
+                    <p class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</p>
                 </div>
                 <div class="buttons">
                     <button class="edit">Edit</button>

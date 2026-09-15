@@ -27,7 +27,7 @@ h2 {
 
 #project-form {
     position: relative;
-    padding-top: 44px;
+    padding-top: 40px;
     padding-inline: 24px;
     padding-bottom: 24px;
     border-radius: 8px;
@@ -55,13 +55,13 @@ h2 {
 .project-fields {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
 }
 
 .label {
     display:flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     font-weight: bold;
 }
 
@@ -71,7 +71,7 @@ h2 {
 
 .todo-form {
     position: relative;
-    padding-top: 44px;
+    padding-top: 40px;
     padding-inline: 24px;
     padding-bottom: 24px;
     border-radius: 8px;
@@ -80,7 +80,7 @@ h2 {
 .todo-fields {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 6px;
 }
 
 .todo {
