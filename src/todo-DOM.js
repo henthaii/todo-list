@@ -17,7 +17,7 @@ function newTodo() {
                     </div>
                     <div class="label">
                         <label for="due-date">Due Date:</label>
-                        <input type="text" name="due-date" id="due-date">
+                        <input type="date" name="due-date" id="due-date">
                     </div>
                     <div class="label">
                         <label for="description">Description:</label>
@@ -85,7 +85,6 @@ function renderAllTodos(projectCard,projectId){
     toggleButton.addEventListener("click", () => {
       todoCard.classList.toggle("expanded");
       
-      // Dynamic button text update
       if (todoCard.classList.contains("expanded")) {
         toggleButton.textContent = "Show Less";
       } else {
@@ -95,7 +94,6 @@ function renderAllTodos(projectCard,projectId){
 
     const editButton = todoCard.querySelector(".edit");
     editButton.addEventListener("click", () => {
-    // We pass the existing todo object so the form knows it's editing
     renderEditTodo(projectCard, projectId, todo);
     });
     

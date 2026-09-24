@@ -108,6 +108,11 @@ h2 {
     opacity: 1;
 }
 
+.todo-card > label {
+    position: relative;
+    padding-top: 15px;
+}
+
 h3 {
     margin: 1%;
 }
