@@ -3,6 +3,8 @@
 
 
 // DOM handler
+import { addProjectToData } from "./todo-component.js";
+
 function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');

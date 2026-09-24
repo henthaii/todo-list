@@ -15,8 +15,15 @@ function formSubmit(projectElement) {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        heading.textContent = getProjectName(form);
-        projectElement.dataset.projectId = crypto.randomUUID();
+        
+        const projectName = getProjectName(form);
+        const projectId = crypto.randomUUID(); 
+        
+        heading.textContent = projectName;
+        projectElement.dataset.projectId = projectId; 
+        
+        addProjectToData(projectId, projectName);
+        
         dialog.close();
         dialog.remove();
     });
@@ -50,6 +57,22 @@ function clickingNewProject() {
             console.log("Adding new project.");
         });
     }
+}
+
+export function renderSavedProject(id, name) {
+    const projectContainer = document.querySelector(".container");
+    const projectElement = newProject();
+    
+    // Set the data directly instead of showing a modal form
+    projectElement.dataset.projectId = id;
+    projectElement.querySelector('h2').textContent = name;
+    
+    // Remove the dialog setup completely since it's an existing project
+    const dialog = projectElement.querySelector('#project-dialog');
+    if (dialog) dialog.remove();
+    
+    projectContainer.appendChild(projectElement);
+    return projectElement; // return this so index.js can pass it to renderAllTodos
 }
 
 export {clickingNewProject};

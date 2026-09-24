@@ -1,9 +1,7 @@
 // file is used for visual assistance, will not be used for index
 
-// how tf do i add a new array based on newproject being created
-
-
-// not sure if i need this section, started copying but hten it deviated
+// DOM handler
+// DOM handler
 function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');
@@ -11,13 +9,15 @@ function newProject() {
         <dialog id="project-dialog">
             <form id="project-form">
                 <button type="button" class="cancel-x">x</button>
-                <div class="label">
-                    <label for="project-name">Project Name:</label>
-                    <input type="text" name="project-name" id="project-name">
-                </div>
-                <div class="dialog-buttons">
-                    <button type="submit">Submit</button>
-                    <button type="button" class="cancel">Cancel</button>
+                <div class="project-fields">
+                    <div class="label">
+                        <label for="project-name">Project Name:</label>
+                        <input type="text" name="project-name" id="project-name">
+                    </div>
+                    <div class="dialog-buttons">
+                        <button type="submit">Submit</button>
+                        <button type="button" class="cancel">Cancel</button>
+                    </div>
                 </div>
             </form>
         </dialog>
@@ -52,8 +52,15 @@ function formSubmit(projectElement) {
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        heading.textContent = getProjectName(form);
-        projectElement.dataset.projectId = crypto.randomUUID();
+        
+        const projectName = getProjectName(form);
+        const projectId = crypto.randomUUID(); 
+        
+        heading.textContent = projectName;
+        projectElement.dataset.projectId = projectId; 
+        
+        addProjectToData(projectId, projectName);
+        
         dialog.close();
         dialog.remove();
     });
@@ -78,7 +85,6 @@ function renderNewProject() {
     formSubmit(appendNewProject); // adds DOM to the formSubmit function and fills in the "projectElement", also adds the form data
 }
 
-
 // Initializing clicks
 function clickingNewProject() {
     const button = document.querySelector(".project");
@@ -88,6 +94,22 @@ function clickingNewProject() {
             console.log("Adding new project.");
         });
     }
+}
+
+export function renderSavedProject(id, name) {
+    const projectContainer = document.querySelector(".container");
+    const projectElement = newProject();
+    
+    // Set the data directly instead of showing a modal form
+    projectElement.dataset.projectId = id;
+    projectElement.querySelector('h2').textContent = name;
+    
+    // Remove the dialog setup completely since it's an existing project
+    const dialog = projectElement.querySelector('#project-dialog');
+    if (dialog) dialog.remove();
+    
+    projectContainer.appendChild(projectElement);
+    return projectElement; // return this so index.js can pass it to renderAllTodos
 }
 
 export {clickingNewProject};

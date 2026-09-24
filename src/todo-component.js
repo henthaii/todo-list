@@ -1,7 +1,8 @@
 // This will manage the data and parts for controller
 // and DOM
 
-const mainTodo = {};
+let mainTodo = {};
+let mainProjects = [];
 
 class Todo {
     constructor(title,description,dueDate,priority) {
@@ -13,12 +14,32 @@ class Todo {
     };
 };
 
+function saveToLocalStorage() {
+    localStorage.setItem("mainTodo", JSON.stringify(mainTodo));
+    localStorage.setItem("mainProjects", JSON.stringify(mainProjects));
+}
+
+function loadFromLocalStorage() {
+    const savedData = localStorage.getItem("mainTodo");
+    const savedProjects = localStorage.getItem("mainProjects");
+     mainTodo = savedTodo ? JSON.parse(savedTodo) : {};
+    mainProjects = savedProjects ? JSON.parse(savedProjects) : [];
+    
+}
+loadFromLocalStorage();
+
+function addProjectToData(id, name) {
+    mainProjects.push({ id, name });
+    saveToLocalStorage();
+}
+
 function addTodoToArray(projectId,title,description,dueDate,priority) {
     const newTodo = new Todo(title,description,dueDate,priority);
     if (!mainTodo[projectId]) {
         mainTodo[projectId] = [];
     }
     mainTodo[projectId].push(newTodo);
+    saveToLocalStorage();
     return newTodo;
 }
 
@@ -38,6 +59,7 @@ function deleteTodoFromArray(projectId,id) {
     const index = mainTodo[projectId].findIndex(todo => todo.id === id);
     if (index !== -1) {
         mainTodo[projectId].splice(index,1);
+        saveToLocalStorage();
     };
 };
 
@@ -49,8 +71,10 @@ function updateTodoInArray(projectId, id, title, description, dueDate, priority)
     todo.description = description;
     todo.dueDate = dueDate;
     todo.priority = priority;
+
+    saveToLocalStorage();
   }
   return todo;
 }
 
-export { mainTodo, Todo, addTodoToArray, getTodoName, deleteTodoFromArray, updateTodoInArray };
+export { mainTodo, mainProjects, addProjectToData, addTodoToArray, deleteTodoFromArray, updateTodoInArray, getTodoName};

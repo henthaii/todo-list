@@ -41,9 +41,7 @@ function renderNewTodo(projectCard, projectId) {
 }
 
 function clickingNewTodo() {
-    // Attach a single listener to the body or a stable main container
     document.body.addEventListener("click", (event) => {
-        // Check if the clicked element (or its closest ancestor) has the class 'todo'
         const todoButton = event.target.closest(".todo");
         if (todoButton) {
             const projectCard = todoButton.closest(".project-card")
@@ -66,7 +64,6 @@ function renderEditTodo(projectCard, projectId, todo) {
     const cancelButton = editTodoElement.querySelector('.cancel');
     const cancelXButton = editTodoElement.querySelector('.cancel-x');
     
-    // Pre-populate the form inputs with existing data
     form.querySelector('#title').value = todo.title;
     form.querySelector('#description').value = todo.description;
     form.querySelector('#due-date').value = todo.dueDate;
@@ -74,12 +71,10 @@ function renderEditTodo(projectCard, projectId, todo) {
     
     dialog.showModal();
     
-    // Handle the submission for EDITING
     form.addEventListener('submit', (event) => {
         event.preventDefault();
         const formData = new FormData(form);
         
-        // Update the array using our new function
         updateTodoInArray(
             projectId,
             todo.id,
@@ -89,12 +84,11 @@ function renderEditTodo(projectCard, projectId, todo) {
             formData.get("priority")
         );
         
-        renderAllTodos(projectCard, projectId); // Re-render DOM
+        renderAllTodos(projectCard, projectId);
         dialog.close();
         editTodoElement.remove();
     });
     
-    // Cancel listeners
     const closeForm = () => { dialog.close(); editTodoElement.remove(); };
     cancelButton.addEventListener('click', closeForm);
     cancelXButton.addEventListener('click', closeForm);

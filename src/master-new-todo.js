@@ -6,9 +6,8 @@
 // add addeventlistener button logic
 // appending logic to container will need to be a separate module
 
-
-
-const mainTodo = {};
+let mainTodo = {};
+let mainProjects = [];
 
 class Todo {
     constructor(title,description,dueDate,priority) {
@@ -20,12 +19,32 @@ class Todo {
     };
 };
 
+function saveToLocalStorage() {
+    localStorage.setItem("mainTodo", JSON.stringify(mainTodo));
+    localStorage.setItem("mainProjects", JSON.stringify(mainProjects));
+}
+
+function loadFromLocalStorage() {
+    const savedData = localStorage.getItem("mainTodo");
+    const savedProjects = localStorage.getItem("mainProjects");
+     mainTodo = savedTodo ? JSON.parse(savedTodo) : {};
+    mainProjects = savedProjects ? JSON.parse(savedProjects) : [];
+    
+}
+loadFromLocalStorage();
+
+function addProjectToData(id, name) {
+    mainProjects.push({ id, name });
+    saveToLocalStorage();
+}
+
 function addTodoToArray(projectId,title,description,dueDate,priority) {
     const newTodo = new Todo(title,description,dueDate,priority);
     if (!mainTodo[projectId]) {
         mainTodo[projectId] = [];
     }
     mainTodo[projectId].push(newTodo);
+    saveToLocalStorage();
     return newTodo;
 }
 
@@ -45,6 +64,7 @@ function deleteTodoFromArray(projectId,id) {
     const index = mainTodo[projectId].findIndex(todo => todo.id === id);
     if (index !== -1) {
         mainTodo[projectId].splice(index,1);
+        saveToLocalStorage();
     };
 };
 
@@ -56,115 +76,17 @@ function updateTodoInArray(projectId, id, title, description, dueDate, priority)
     todo.description = description;
     todo.dueDate = dueDate;
     todo.priority = priority;
+
+    saveToLocalStorage();
   }
   return todo;
 }
 
-export {mainTodo, Todo, addTodoToArray, getTodoName, deleteTodoFromArray, updateTodoInArray}
+export { mainTodo, mainProjects, addProjectToData, addTodoToArray, deleteTodoFromArray, updateTodoInArray, getTodoName};
 
-import {mainTodo, deleteTodoFromArray, updateTodoInArray} from "./todo-component.js"
-
-function newTodo() {
-    const toDo = document.createElement('div');
-    toDo.classList.add('todo-container');
-    toDo.innerHTML = `
-        <dialog class="todo-dialog">
-            <form class="todo-form">
-                <button type="button" class="cancel-x">x</button>
-                <div class="label">
-                    <label for="title">Title:</label>
-                    <input type="text" name="title" id="title">
-                </div>
-                <div class="label">
-                    <label for="description">Description:</label>
-                    <input type="text" name="description" id="description">
-                </div>
-                <div class="label">
-                    <label for="due-date">Due Date:</label>
-                    <input type="date" name="due-date" id="due-date">
-                </div>
-                <div class="label">
-                    <label for="priority">Priority:</label>
-                    <select name="priority">
-                        <option value="low">Low</option>
-                        <option value="medium">Medium</option>
-                        <option value="high">High</option>
-                    </select>
-                </div>
-                <button type="submit">Submit</button>
-                <button type="button" class="cancel">Cancel</button>
-            </form>
-        </dialog>
-    `;
-    return toDo;
-}
-
-function renderAllTodos(projectCard,projectId){
-    if (!projectCard) return;
-    
-    const existingCards = projectCard.querySelectorAll(".todo-card");
-    existingCards.forEach(card => card.remove());
-
-    const specificTodos = mainTodo[projectId] || [];
-    specificTodos.forEach((todo) => {
-        const todoCard = document.createElement("div");
-        todoCard.classList.add("todo-card");
-        todoCard.dataset.id = todo.id;
-        todoCard.innerHTML = `
-            <label>
-                <input type="checkbox" name="done" value="done">
-            </label>
-            <div class="todo-fields">
-                <div class="main-fields">
-                    <h3>To-do: ${todo.title}</h3>
-                    <p>Due: ${todo.dueDate}</small>
-                </div>
-                
-                <div class="extra-fields">
-                    <p>Description: ${todo.description}</p>
-                    <span class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</span>
-                </div>
-
-                <div class="buttons">
-                    <button class="edit">Edit</button>
-                    <button class="delete">Delete</button>
-                    <button class="toggle">Show More</button>
-                </div>
-            </div>
-        `;
-      
-    const deleteButton = todoCard.querySelector(".delete");
-    deleteButton.addEventListener("click", () => {
-        deleteTodoFromArray(projectId, todo.id);
-        todoCard.remove();
-    });
-
-    const toggleButton = todoCard.querySelector(".toggle");
-    toggleButton.addEventListener("click", () => {
-      todoCard.classList.toggle("expanded");
-      
-      if (todoCard.classList.contains("expanded")) {
-        toggleButton.textContent = "Show Less";
-      } else {
-        toggleButton.textContent = "Show More";
-      }
-    });
-
-    const editButton = todoCard.querySelector(".edit");
-    editButton.addEventListener("click", () => {
-    renderEditTodo(projectCard, projectId, todo);
-    });
-
-
-
-    projectCard.appendChild(todoCard);
-  });
-};
-
-export {newTodo, renderAllTodos}
 
 import {getTodoName, updateTodoInArray} from "./todo-component.js"
-import {newTodo,renderAllTodos} from "./todo-DOM.js"
+import {newTodo, renderAllTodos} from "./todo-DOM.js"
 
 function todoSubmit(todoElement, projectCard, projectId) {
     const form = todoElement.querySelector(".todo-form");
@@ -226,7 +148,6 @@ function renderEditTodo(projectCard, projectId, todo) {
     const cancelButton = editTodoElement.querySelector('.cancel');
     const cancelXButton = editTodoElement.querySelector('.cancel-x');
     
-
     form.querySelector('#title').value = todo.title;
     form.querySelector('#description').value = todo.description;
     form.querySelector('#due-date').value = todo.dueDate;
@@ -257,4 +178,107 @@ function renderEditTodo(projectCard, projectId, todo) {
     cancelXButton.addEventListener('click', closeForm);
 }
 
-export {todoSubmit, renderNewTodo, clickingNewTodo, renderNewTodo};
+export {todoSubmit, renderNewTodo, clickingNewTodo, renderEditTodo};
+
+import {mainTodo, deleteTodoFromArray, updateTodoInArray} from "./todo-component.js"
+import {renderEditTodo} from "./todo-controller.js"
+
+function newTodo() {
+    const toDo = document.createElement('div');
+    toDo.classList.add('todo-container');
+    toDo.innerHTML = `
+        <dialog class="todo-dialog">
+            <form class="todo-form">
+                <button type="button" class="cancel-x">x</button>
+                <div class="todo-fields">
+                    <div class="label">
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" id="title">
+                    </div>
+                    <div class="label">
+                        <label for="due-date">Due Date:</label>
+                        <input type="date" name="due-date" id="due-date">
+                    </div>
+                    <div class="label">
+                        <label for="description">Description:</label>
+                        <input type="text" name="description" id="description">
+                    </div>
+                    <div class="label">
+                        <label for="priority">Priority:</label>
+                        <select name="priority">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                    <div class="dialog-buttons">
+                        <button type="submit">Submit</button>
+                        <button type="button" class="cancel">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </dialog>
+    `;
+    return toDo;
+}
+
+function renderAllTodos(projectCard,projectId){
+    if (!projectCard) return;
+    
+    const existingCards = projectCard.querySelectorAll(".todo-card");
+    existingCards.forEach(card => card.remove());
+
+    const specificTodos = mainTodo[projectId] || [];
+
+    specificTodos.forEach((todo) => {
+        const todoCard = document.createElement("div");
+        todoCard.classList.add("todo-card");
+        todoCard.dataset.id = todo.id;
+        todoCard.innerHTML = `
+            <label>
+                <input type="checkbox" name="done" value="done">
+            </label>
+            <div class="todo-fields">
+                <div class="main-fields">
+                    <h3>To-do: ${todo.title}</h3>
+                    <p>Due: ${todo.dueDate}</small>
+                </div>
+                <div class="extra-fields">
+                    <p>Description: ${todo.description}</p>
+                    <p class="priority-${todo.priority.toLowerCase()}">Priority Level: ${todo.priority}</p>
+                </div>
+                <div class="buttons">
+                    <button class="edit">Edit</button>
+                    <button class="delete">Delete</button>
+                    <button class="toggle">Show More</button>
+                </div>
+            </div>
+        `;
+      
+    const deleteButton = todoCard.querySelector(".delete");
+    deleteButton.addEventListener("click", () => {
+        deleteTodoFromArray(projectId, todo.id);
+        todoCard.remove();
+    });
+
+    const toggleButton = todoCard.querySelector(".toggle");
+    toggleButton.addEventListener("click", () => {
+      todoCard.classList.toggle("expanded");
+      
+      if (todoCard.classList.contains("expanded")) {
+        toggleButton.textContent = "Show Less";
+      } else {
+        toggleButton.textContent = "Show More";
+      }
+    });
+
+    const editButton = todoCard.querySelector(".edit");
+    editButton.addEventListener("click", () => {
+    renderEditTodo(projectCard, projectId, todo);
+    });
+    
+    projectCard.appendChild(todoCard);
+  });
+};
+
+export {newTodo, renderAllTodos}
