@@ -1,7 +1,8 @@
 // file is used for visual assistance, will not be used for index
 
 // DOM handler
-// DOM handler
+
+
 function newProject() {
     const project = document.createElement('div');
     project.classList.add('project-card');
@@ -39,6 +40,7 @@ function getProjectName(formElement) {
 export {newProject,getProjectName}
 
 import {newProject,getProjectName} from "./project-component.js"
+import { addProjectToData } from "./todo-component.js";
 
 // This will handle the modal info and form actions
 function formSubmit(projectElement) {

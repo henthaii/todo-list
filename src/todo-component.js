@@ -1,8 +1,8 @@
 // This will manage the data and parts for controller
 // and DOM
 
-let mainTodo = {};
-let mainProjects = [];
+const mainTodo = {};
+const mainProjects = [];
 
 class Todo {
     constructor(title,description,dueDate,priority) {
@@ -22,10 +22,15 @@ function saveToLocalStorage() {
 function loadFromLocalStorage() {
     const savedData = localStorage.getItem("mainTodo");
     const savedProjects = localStorage.getItem("mainProjects");
-     mainTodo = savedTodo ? JSON.parse(savedTodo) : {};
-    mainProjects = savedProjects ? JSON.parse(savedProjects) : [];
-    
-}
+     if (savedData) {
+        // Mutate the existing object rather than reassigning the variable reference
+        Object.assign(mainTodo, JSON.parse(savedData));
+    }
+    if (savedProjects) {
+        // Mutate the existing array safely
+        mainProjects.push(...JSON.parse(savedProjects));
+    }
+} 
 loadFromLocalStorage();
 
 function addProjectToData(id, name) {

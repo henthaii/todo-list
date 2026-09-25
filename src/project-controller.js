@@ -2,6 +2,7 @@
 // and modal event interactions.
 
 import {newProject,getProjectName} from "./project-component.js"
+import { addProjectToData } from "./todo-component.js";
 
 // This will handle the modal info and form actions
 function formSubmit(projectElement) {
